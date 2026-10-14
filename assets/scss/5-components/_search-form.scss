@@ -1,0 +1,39 @@
+// Search form (searchform.php)
+.search-form {
+	width: 100%;
+	background-color: $white;
+	overflow: hidden;
+	position: relative;
+
+	& &__input { // .search-form .search-form__input: stronger than the text field rule input[type="text"]
+		width: 100%;
+		padding-right: rem(55);
+	}
+
+	&__submit {
+		display: inline-flex;
+		width: rem(45);
+		height: 100%;
+		align-items: center;
+		justify-content: center;
+		background-color: transparent;
+		border: none;
+		padding: 0;
+		cursor: pointer;
+		position: absolute;
+		top: 1px;
+		right: 1px;
+
+		svg {
+			width: rem(20);
+			height: rem(20);
+			fill: $primary;
+		}
+
+		@include hover {
+			svg {
+				fill: $secondary;
+			}
+		}
+	}
+}

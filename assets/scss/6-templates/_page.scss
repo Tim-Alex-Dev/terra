@@ -1,0 +1,18 @@
+.site-content {
+	width: 100%;
+	flex-grow: 1;
+}
+
+.entry-title {
+	font-weight: 700;
+	margin-bottom: 1em;
+}
+
+.entry-content {
+	@extend .editor;
+	padding-bottom: rem(70);
+
+	@include min(lg) {
+		padding-bottom: rem(120);
+	}
+}

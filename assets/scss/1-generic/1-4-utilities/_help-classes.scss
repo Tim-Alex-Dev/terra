@@ -1,0 +1,71 @@
+// Images
+// .img-cover fills its parent, which needs position: relative (or absolute/fixed) and a size
+.img-cover {
+	width: 100% !important;
+	height: 100% !important;
+	object-fit: cover !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.img-contain {
+	width: 100% !important;
+	height: 100% !important;
+	object-fit: contain !important;
+}
+
+
+// Link stretched over its whole positioned parent (e.g. a card: the title link makes the whole card clickable)
+.stretched-link::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+}
+
+
+// Text only for screen readers (WordPress class). Visible on focus, e.g. the "Skip to content" link.
+.screen-reader-text {
+	border: 0;
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute !important;
+	width: 1px;
+	overflow-wrap: normal !important; // no broken words for screen readers
+
+	&:focus {
+		font-size: rem(14);
+		background-color: $white;
+		border-radius: $radius;
+		box-shadow: 0 0 0 2px $system-color;
+		clip-path: none;
+		color: $black;
+		display: block;
+		font-weight: 700;
+		height: auto;
+		left: rem(5);
+		line-height: normal;
+		padding: rem(15 23 14);
+		text-decoration: none;
+		top: rem(5);
+		width: auto;
+		z-index: 100000;
+	}
+}
+
+// State helpers
+.overflow-hidden {
+	overflow: hidden !important; // body class while a modal is open (assets/js/components/modal.js)
+}
+
+.disabled {
+	pointer-events: none !important;
+}
+
+.d-none {
+	display: none !important;
+}

@@ -1,0 +1,10 @@
+node_modules
+.idea
+.DS_Store
+Thumbs.db
+*.log
+dist
+vendor
+.npm
+.claude/settings.local.json
+.claude/tasks/

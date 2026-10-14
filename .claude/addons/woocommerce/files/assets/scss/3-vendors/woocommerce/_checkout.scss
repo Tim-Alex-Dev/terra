@@ -1,0 +1,100 @@
+.woocommerce,
+.woocommerce-page {
+	#payment #place_order {
+		@extend .btn-lg;
+	}
+}
+
+.woocommerce-shipping-fields {
+	margin-top: rem(30);
+}
+
+.woocommerce-form-coupon {
+	&__input {
+		display: flex;
+		max-width: rem(500);
+
+		input[type="text"] {
+			flex-grow: 1;
+			width: auto !important;
+			background-image: none;
+			border: 1px solid $grey;
+			border-radius: $radius 0 0 $radius;
+			margin: rem(0 -5 0 0) !important;
+			padding: rem(0 21 0 16);
+
+			&:hover,
+			&:active,
+			&:focus {
+				border-color: $black;
+			}
+
+			&:not(:focus) {
+				&::placeholder {
+					opacity: 0.5;
+				}
+			}
+
+			@include min(lg) {
+				font-size: rem(18);
+			}
+		}
+
+		button {
+			flex-shrink: 0;
+			width: auto !important;
+			min-width: rem(100);
+		}
+	}
+}
+
+.showcoupon {
+	@extend %link;
+}
+
+#add_payment_method,
+.woocommerce-cart,
+.woocommerce-checkout {
+	#payment {
+		background: none;
+
+		div.payment_box {
+			color: $color-text;
+			border-radius: $radius;
+		}
+	}
+
+	.cart-collaterals .shipping-calculator-button {
+		@extend %link;
+	}
+}
+
+#customer_details {
+	h3 {
+		@extend .h5;
+	}
+}
+
+#ship-to-different-address label {
+	cursor: pointer;
+}
+
+.woocommerce-privacy-policy-text {
+	a {
+		@extend %link;
+	}
+}
+
+// Checkout: customer details | order review (1:1 from lg, 5:7 from xl)
+.checkout__grid {
+	display: grid;
+	gap: $grid-gutter-width;
+
+	@include min(lg) {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	@include min(xl) {
+		grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+	}
+}

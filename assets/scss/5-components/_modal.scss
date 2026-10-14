@@ -1,0 +1,89 @@
+// Modal
+.modal {
+	// local variables:
+	--modal-margin: #{rem(20)};
+	--modal-max-width: #{rem(800)};
+
+	width: 100%;
+	height: 100%;
+	display: block;
+	overflow-x: hidden;
+	overflow-y: auto;
+	position: fixed;
+	top: 0;
+	left: 0;
+	visibility: hidden;
+	z-index: -1;
+	opacity: 0;
+
+	&__overlay {
+		background-color: rgba($black, 0.3);
+		position: fixed;
+		inset: 0;
+	}
+
+	&.is-open {
+		opacity: 1;
+		transition: opacity $time;
+		visibility: visible;
+		z-index: 110;
+
+		.modal__inner {
+			transform: translateY(0);
+			transition: transform $time;
+		}
+	}
+
+	&__inner {
+		width: 100%;
+		max-width: var(--modal-max-width);
+		height: calc(100% - var(--modal-margin) * 2);
+		display: flex;
+		align-items: center;
+		padding: 0 var(--modal-margin);
+		margin: var(--modal-margin) auto;
+		position: relative;
+		transform: translateY(rem(-50));
+		pointer-events: none;
+	}
+
+	&__content {
+		width: 100%;
+		max-height: 100%;
+		background-color: $white;
+		border-radius: $radius;
+		padding: rem(30);
+		overflow-y: auto;
+		position: relative;
+		pointer-events: auto;
+
+		@include min(md) {
+			padding-top: rem(50);
+		}
+	}
+
+	// a <button>
+	&__close {
+		display: inline-block;
+		line-height: 0;
+		background: none;
+		border: 0;
+		padding: 0;
+		position: absolute;
+		top: rem(15);
+		right: rem(15);
+		cursor: pointer;
+
+		@include hover {
+			svg {
+				fill: $black;
+			}
+		}
+
+		svg {
+			width: rem(22);
+			height: rem(22);
+			fill: $primary;
+		}
+	}
+}

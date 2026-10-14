@@ -1,0 +1,47 @@
+// px -> rem: rem(24), rem(10 20 30 40), in CSS variables #{rem(24)}
+
+@use "sass:list";
+@use "sass:map";
+@use "sass:math";
+
+$rem-base: 16px !default;
+
+@function strip-unit($num) {
+	@return math.div($num, $num * 0 + 1);
+}
+
+@function convert-to-rem($value, $base-value: $rem-base) {
+	$value: math.div(math.round(math.div(strip-unit($value), strip-unit($base-value)) * 10000), 10000) * 1rem;
+	@if ($value == 0rem) { $value: 0; }
+	@return $value;
+}
+
+@function rem($values, $base-value: $rem-base) {
+	$max: list.length($values);
+
+	@if $max == 1 { @return convert-to-rem(list.nth($values, 1), $base-value); }
+
+	$remValues: ();
+	@for $i from 1 through $max {
+		$remValues: list.append($remValues, convert-to-rem(list.nth($values, $i), $base-value));
+	}
+	@return $remValues;
+}
+
+// Fluid size: clamp-rem(32, 48) grows from 32px at md to 48px at xl; other viewports: clamp-rem(32, 48, 640, 1440)
+@function clamp-rem($font-size-min, $font-size-max, $viewport-min: map.get($grid-breakpoints, md), $viewport-max: map.get($grid-breakpoints, xl)) {
+
+	@if math.is-unitless($viewport-min) {
+		$viewport-min: $viewport-min * 1px;
+	}
+	$font-size-min-rem: convert-to-rem($font-size-min);
+	$font-size-max-rem: convert-to-rem($font-size-max);
+
+	$var1: calc(1vw - round(math.div($viewport-min, 100) * 10000) / 10000);
+	$var2: calc(100 * round(math.div((strip-unit($font-size-max) - strip-unit($font-size-min)), (strip-unit($viewport-max) - strip-unit($viewport-min))) * 10000) / 10000);
+	$fluid: calc( $font-size-min-rem + ($var1 * $var2) );
+
+	$clamp: clamp( #{$font-size-min-rem}, #{$fluid}, #{$font-size-max-rem} );
+
+	@return $clamp;
+}

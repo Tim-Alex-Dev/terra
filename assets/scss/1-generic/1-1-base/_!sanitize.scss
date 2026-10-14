@@ -1,0 +1,209 @@
+// Base reset: the useful parts of sanitize.css 13 and modern-normalize, without fixes for dead browsers (IE, old Edge).
+// Loaded first in 1-generic (`_!`). Element styles that build on it are in _elements.scss.
+
+// Document -------------------------------------------
+
+*,
+::before,
+::after {
+	box-sizing: border-box;
+	background-repeat: no-repeat;
+}
+
+::before,
+::after {
+	text-decoration: inherit;
+	vertical-align: inherit;
+}
+
+html {
+	cursor: default;
+	line-height: 1.15;
+	tab-size: 4;
+	text-size-adjust: 100%; // no font size adjustment after orientation change on mobiles
+	overflow-wrap: break-word; // long words do not overflow their box
+}
+
+body {
+	margin: 0;
+}
+
+// Text -------------------------------------------
+
+nav ol,
+nav ul {
+	list-style: none;
+	padding: 0;
+}
+
+abbr[title] {
+	text-decoration: underline dotted;
+}
+
+code,
+kbd,
+samp,
+pre {
+	font-size: 1em; // correct the odd `em` font sizing of monospace fonts
+}
+
+small {
+	font-size: 80%;
+}
+
+// sub and sup do not change the line height
+sub,
+sup {
+	font-size: 75%;
+	line-height: 0;
+	position: relative;
+	vertical-align: baseline;
+}
+
+sub {
+	bottom: -0.25em;
+}
+
+sup {
+	top: -0.5em;
+}
+
+// Embedded content -------------------------------------------
+
+audio,
+canvas,
+iframe,
+img,
+svg,
+video {
+	vertical-align: middle;
+}
+
+iframe {
+	border-style: none;
+}
+
+svg:not([fill]) {
+	fill: currentColor;
+}
+
+// Tables -------------------------------------------
+
+table {
+	border-collapse: collapse;
+	border-color: inherit;
+	text-indent: 0;
+}
+
+// Forms -------------------------------------------
+
+button,
+input,
+select,
+textarea {
+	font-family: inherit;
+	font-size: inherit;
+	line-height: inherit;
+	margin: 0;
+}
+
+button,
+select {
+	text-transform: none;
+}
+
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+	appearance: button; /* stylelint-disable-line declaration-property-value-keyword-no-deprecated -- intentional: clickable types can be styled on iOS */
+}
+
+fieldset {
+	padding: 0.35em 0.75em 0.625em;
+}
+
+legend {
+	padding: 0;
+}
+
+progress {
+	vertical-align: baseline;
+}
+
+textarea {
+	resize: vertical;
+}
+
+[type="search"] {
+	appearance: textfield;
+	outline-offset: -2px;
+}
+
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
+	height: auto;
+}
+
+::-webkit-search-decoration {
+	appearance: none;
+}
+
+::-webkit-file-upload-button {
+	appearance: button; /* stylelint-disable-line declaration-property-value-keyword-no-deprecated -- intentional (file input button) */
+	font: inherit;
+}
+
+::placeholder {
+	color: inherit;
+	opacity: 0.54;
+}
+
+:-moz-ui-invalid {
+	box-shadow: none;
+}
+
+// Interactive -------------------------------------------
+
+summary {
+	display: list-item;
+}
+
+// no 300ms tap delay on clickable elements
+a,
+area,
+button,
+input,
+label,
+select,
+summary,
+textarea,
+[tabindex] {
+	touch-action: manipulation;
+}
+
+[hidden] {
+	display: none;
+}
+
+// Accessibility -------------------------------------------
+
+[aria-busy="true"] {
+	cursor: progress;
+}
+
+[aria-controls] {
+	cursor: pointer;
+}
+
+[aria-disabled="true"],
+[disabled] {
+	cursor: not-allowed;
+}
+
+// visually hidden, but still accessible to screen readers
+[aria-hidden="false"][hidden]:not(:focus) {
+	clip: rect(0, 0, 0, 0);
+	display: inherit;
+	position: absolute;
+}

@@ -1,0 +1,31 @@
+// PAGE 404
+.error404 {
+	.site-content {
+		display: flex;
+		align-items: center;
+		padding: clamp-rem(100, 150) 0;
+	}
+}
+
+.not-found {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+
+	&__title {
+		color: $primary;
+		font-size: clamp-rem(50, 70);
+		margin-bottom: 0.3em;
+	}
+
+	&__text {
+		font-size: clamp-rem(18, 20);
+		margin-bottom: 1.5em;
+
+		@include min(lg) {
+			margin-bottom: 2.5em;
+		}
+	}
+}

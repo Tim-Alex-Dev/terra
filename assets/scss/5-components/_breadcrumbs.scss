@@ -1,0 +1,41 @@
+.breadcrumbs {
+	color: $grey;
+	font-size: rem(14);
+	font-style: italic;
+	margin-bottom: rem(30);
+
+	a {
+		color: inherit;
+		margin-right: rem(2);
+
+		@include hover {
+			color: $color-text;
+		}
+	}
+
+	span {
+		span {
+			span {
+				display: inline;
+				margin-left: rem(3);
+			}
+		}
+	}
+
+	.breadcrumb_last {
+		color: $color-text;
+	}
+
+	p {
+		margin: 0;
+	}
+
+	.separator {
+		display: inline-block;
+		margin: rem(0 5);
+
+		@include min(md) {
+			margin: rem(0 10);
+		}
+	}
+}

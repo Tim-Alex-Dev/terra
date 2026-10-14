@@ -1,0 +1,66 @@
+@use "sass:map";
+@use "sass:meta";
+
+// Media queries: @include min(lg) / min(720), max(), minh(), maxh(). A breakpoint is a $grid-breakpoints key or a px number;
+// any other name (e.g. sm) stops the build
+// --- min-width
+@mixin min($bp) {
+	@if map.has-key($grid-breakpoints, $bp) {
+		@media (min-width: map.get($grid-breakpoints, $bp)) {
+			@content;
+		}
+	} @else if meta.type-of($bp) == number {
+		@media (min-width: #{$bp + 'px'}) {
+			@content;
+		}
+	} @else {
+		@error "Unknown breakpoint `#{$bp}`. Available: #{map.keys($grid-breakpoints)} or a number of pixels.";
+	}
+}
+
+// --- min-height
+@mixin minh($bp) {
+	@if map.has-key($grid-breakpoints, $bp) {
+		@media (min-height: map.get($grid-breakpoints, $bp)) {
+			@content;
+		}
+	} @else if meta.type-of($bp) == number {
+		@media (min-height: #{$bp + 'px'}) {
+			@content;
+		}
+	} @else {
+		@error "Unknown breakpoint `#{$bp}`. Available: #{map.keys($grid-breakpoints)} or a number of pixels.";
+	}
+}
+
+// --- max-width
+@mixin max($bp) {
+	@if map.has-key($grid-breakpoints, $bp) {
+		$bp_max: map.get($grid-breakpoints, $bp) - 1;
+		@media (max-width: $bp_max) {
+			@content;
+		}
+	} @else if meta.type-of($bp) == number {
+		@media (max-width: #{$bp + 'px'}) {
+			@content;
+		}
+	} @else {
+		@error "Unknown breakpoint `#{$bp}`. Available: #{map.keys($grid-breakpoints)} or a number of pixels.";
+	}
+}
+
+// --- max-height
+@mixin maxh($bp) {
+	@if map.has-key($grid-breakpoints, $bp) {
+		$bp_max: map.get($grid-breakpoints, $bp) - 1;
+		@media (max-height: $bp_max) {
+			@content;
+		}
+	} @else if meta.type-of($bp) == number {
+		@media (max-height: #{$bp + 'px'}) {
+			@content;
+		}
+	} @else {
+		@error "Unknown breakpoint `#{$bp}`. Available: #{map.keys($grid-breakpoints)} or a number of pixels.";
+	}
+}

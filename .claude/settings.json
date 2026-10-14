@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "deny": [
+      "Edit(dist/**)",
+      "Write(dist/**)",
+      "Edit(package-lock.json)",
+      "Write(package-lock.json)",
+      "Edit(acf-json/**)",
+      "Write(acf-json/**)"
+    ]
+  }
+}

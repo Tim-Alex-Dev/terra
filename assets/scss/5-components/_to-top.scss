@@ -1,0 +1,31 @@
+// To top button
+#to-top {
+	transition: opacity $time, visibility $time, background-color $time;
+	display: inline-flex;
+	background-color: $primary;
+	width: rem(44);
+	height: rem(44);
+	border-radius: $radius;
+	cursor: pointer;
+	position: fixed;
+	bottom: rem(30);
+	right: rem(30);
+	opacity: 0;
+	visibility: hidden;
+	z-index: 90;
+
+	@include hover {
+		background-color: $black;
+	}
+
+	&.show {
+		opacity: 1;
+		visibility: visible;
+	}
+
+	svg {
+		width: rem(44);
+		height: rem(44);
+		fill: $white;
+	}
+}

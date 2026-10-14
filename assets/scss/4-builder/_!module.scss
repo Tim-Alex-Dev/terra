@@ -1,0 +1,76 @@
+// Shared by all modules: <section class="module m-{name}"><div class="container"><div class="module-header">...</div> content </div></section>
+
+// Module (section) spacing
+.module {
+	margin-bottom: rem(50);
+
+	@include min(lg) {
+		margin-bottom: rem(100);
+	}
+
+	&--padding {
+		padding: rem(45 0 50);
+
+		@include min(lg) {
+			padding: rem(70 0);
+		}
+	}
+}
+
+// Space below the module headings (default) or below the module header (when the module has one)
+.module-headings,
+.module-header {
+	margin-bottom: rem(30);
+
+	@include min(lg) {
+		margin-bottom: rem(50);
+	}
+}
+
+// Module header: only when the headings area has extra elements (slider buttons, a button...):
+// <div class="module-header"> headings component + extra elements </div>. It takes the spacing, the headings inside do not.
+.module-header {
+	.module-headings {
+		margin-bottom: 0;
+	}
+}
+
+// Headings component (template-parts/builder/components/headings.php): uptitle, title, subtitle.
+// Alignment from the ACF field title_alignment: alignment-left (default) / alignment-center / alignment-right
+.module-headings {
+	&.alignment-center {
+		text-align: center;
+	}
+
+	&.alignment-right {
+		text-align: right;
+	}
+
+	&__uptitle {
+		display: block;
+		color: $primary;
+		font-size: rem(14);
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		margin-bottom: rem(10);
+	}
+
+	// looks like an h2 with any tag (h1-h6, span) chosen in the title_tag field
+	&__title {
+		@extend .h2;
+		display: block;
+		margin-bottom: 0;
+	}
+
+	&__subtitle {
+		font-size: rem(18);
+		margin: rem(16 0 0);
+	}
+
+	// centered headings: shorter subtitle lines
+	&.alignment-center &__subtitle {
+		max-width: rem(720);
+		margin-inline: auto;
+	}
+}

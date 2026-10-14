@@ -1,0 +1,26 @@
+.socials {
+	display: flex;
+	align-items: center;
+	gap: rem(24);
+
+	&__item {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		color: $white;
+
+		@include hover {
+			color: $primary;
+		}
+
+		svg {
+			width: rem(20);
+			height: rem(20);
+			fill: currentColor;
+
+			&.icon-facebook {
+				width: rem(14);
+			}
+		}
+	}
+}

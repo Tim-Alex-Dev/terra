@@ -1,0 +1,38 @@
+.m-faq {
+	&__list {
+		&-item {
+			border: 1px solid $grey;
+			transition: border-color $time;
+
+			&:not(:last-child) {
+				margin-bottom: rem(10);
+			}
+
+			&.is-open {
+				border-color: $black;
+			}
+
+			@include hover {
+				border-color: $black;
+			}
+
+			&-title {
+				display: flex;
+				justify-content: space-between;
+				gap: rem(16);
+				padding: rem(20);
+				margin: 0;
+
+				svg {
+					width: rem(21);
+					height: rem(21);
+					flex-shrink: 0;
+				}
+			}
+
+			&-content {
+				padding: rem(0 20 20);
+			}
+		}
+	}
+}

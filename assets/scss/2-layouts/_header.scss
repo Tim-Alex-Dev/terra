@@ -1,0 +1,114 @@
+// The header is fixed, so the page content starts below it: full header height, also when the header shrinks on scroll
+// (no content jump). A project's hero that should slide under the header removes it in its module styles:
+// .site-content:has(> .m-hero:first-child) { padding-top: 0; }
+.site-content {
+	padding-top: var(--header-height);
+}
+
+.site-header {
+	width: 100%;
+	height: var(--header-height);
+	background-color: $white;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 100;
+	transition: background-color $time, height $time;
+
+	.is-scrolled & {
+		height: var(--header-scrolled-height);
+		box-shadow: 0 10px 10px rgba($black, 0.1);
+	}
+
+	> .container {
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		gap: rem(30);
+	}
+
+	.site-logo {
+		margin-right: auto;
+		z-index: 3;
+	}
+}
+
+.site-logo {
+	flex-shrink: 0;
+	display: block;
+	line-height: 0;
+	transition: opacity $time;
+
+	img {
+		width: auto;
+		height: rem(50);
+	}
+}
+
+// Mobile menu toggle (hidden from lg up, where the menu is always visible)
+.icon-burger {
+	// it is a <button>: reset the browser styles
+	padding: 0;
+	border: 0;
+	background: none;
+	appearance: none;
+
+	flex-shrink: 0;
+	display: inline-block;
+	width: rem(30);
+	height: rem(20);
+	cursor: pointer;
+	position: relative;
+	z-index: 110;
+
+	@include min(lg) {
+		display: none;
+	}
+
+	.is-menu-open & {
+		i {
+			background-color: transparent;
+
+			&::before {
+				transform: rotate(-45deg) translateY(rem(-4));
+			}
+
+			&::after {
+				transform: rotate(45deg) translateY(rem(4));
+			}
+		}
+	}
+
+	i {
+		display: block;
+		width: 100%;
+		height: 2px;
+		background-color: $primary;
+		position: absolute;
+		top: calc(50% - 1px);
+		left: 0;
+		transition: transform $time;
+
+		&::before,
+		&::after {
+			transition: transform $time, top $time;
+			content: '';
+			display: block;
+			width: 100%;
+			height: 2px;
+			background-color: $primary;
+			transform-origin: right center;
+			position: absolute;
+			right: 0;
+		}
+
+		&::before {
+			top: rem(-8);
+		}
+
+		&::after {
+			top: rem(8);
+		}
+	}
+}

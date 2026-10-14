@@ -1,0 +1,54 @@
+// Styles of the WYSIWYG editor (TinyMCE, loaded by inc/editor.php): the same typography, buttons and lists as the front end.
+// Variables, global CSS variables, fonts, mixins
+@import "0-settings/*";
+
+// Reset, HTML tags, typography, editor formats, buttons, fields, helpers
+@import "1-generic/**/*.scss";
+
+// The editor content looks like formatted content on the front end (.editor: links, heading spacing)
+body.mce-content-body {
+	@extend .editor;
+}
+
+*,
+*::before,
+*::after {
+	cursor: initial !important;
+}
+
+body,
+body.wp-autoresize {
+	min-height: unset;
+	display: block;
+	padding: rem(10) !important;
+
+	a:not([class]) {
+		text-decoration: underline;
+	}
+}
+
+// White buttons are invisible on the white editor background
+.btn-white {
+	outline: 1px solid $grey !important;
+	color: $grey !important;
+}
+
+// "Button Group" editor format: show the group in the editor
+.btn-group {
+	outline: 1px dashed $grey;
+	outline-offset: rem(5);
+	position: relative;
+
+	&::after {
+		content: 'Button Group';
+		background-color: $white;
+		display: inline-block;
+		font-size: rem(12);
+		line-height: 1;
+		color: $grey;
+		padding: rem(3 5);
+		position: absolute;
+		right: 0;
+		bottom: rem(-5);
+	}
+}

@@ -1,0 +1,166 @@
+// Header menu
+.main-nav {
+	@include max(lg) {
+		width: 100%;
+		height: 100dvh; // dynamic viewport height: excludes the mobile browser bars
+		background-color: $white;
+		color: $black;
+		overflow-y: auto;
+		padding: var(--header-height) 0 rem(30);
+		position: fixed;
+		top: 0;
+		right: 0;
+		transition: opacity $time * 0.2; // closes faster than it opens
+		opacity: 0;
+		visibility: hidden;
+		z-index: -1;
+	}
+
+	@include min(lg) {
+		display: flex;
+		align-items: center;
+	}
+
+	.is-menu-open & {
+		opacity: 1;
+		visibility: visible;
+		transition: opacity $time;
+		z-index: 2;
+	}
+}
+
+.main-menu {
+	@include unstyled-list;
+	display: flex;
+	flex-direction: column;
+	gap: rem(20);
+
+	@include min(lg) {
+		flex-direction: row;
+		align-items: center;
+		gap: rem(45);
+	}
+
+	&__container {
+		@extend .container;
+
+		@include min(lg) {
+			max-width: unset;
+			padding-right: 0;
+			padding-left: 0;
+		}
+	}
+
+	> li {
+		flex-shrink: 0;
+		display: block;
+		position: relative;
+
+		@include min(lg) {
+			display: flex;
+			align-items: center;
+			height: var(--header-scrolled-height);
+		}
+
+		&.menu-item-has-children {
+			padding-right: rem(24);
+			position: relative;
+
+			@include min(lg) {
+				padding-right: 0;
+			}
+
+			// chevron down: a mask, so its color comes from background-color
+			&::after {
+				transition: transform $time;
+				content: '';
+				width: rem(16);
+				height: rem(14);
+				background-color: $primary;
+				mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3Cpath d='M441.9 167.3l-19.8-19.8c-4.7-4.7-12.3-4.7-17 0L224 328.2 42.9 147.5c-4.7-4.7-12.3-4.7-17 0L6.1 167.3c-4.7 4.7-4.7 12.3 0 17l209.4 209.4c4.7 4.7 12.3 4.7 17 0l209.4-209.4c4.7-4.7 4.7-12.3 0-17z'/%3E%3C/svg%3E") no-repeat 50% / contain;
+				position: absolute;
+				top: 0.6em;
+				right: 0;
+
+				@include min(lg) {
+					top: calc(50% - rem(7));
+					right: rem(-20);
+				}
+			}
+
+			// desktop: open on hover, and for keyboard users while the focus is inside the item
+			@include hover {
+				.sub-menu {
+					transform: translateY(0);
+					opacity: 1;
+					visibility: visible;
+				}
+			}
+
+			&:focus-within {
+				.sub-menu {
+					@include min(lg) {
+						transform: translateY(0);
+						opacity: 1;
+						visibility: visible;
+					}
+				}
+			}
+
+			&.active {
+				&::after {
+					transform: rotate(180deg);
+				}
+			}
+		}
+
+		> a {
+			color: $color-text;
+			font-weight: 700;
+
+			@include hover {
+				color: $primary !important;
+			}
+		}
+	}
+
+	.sub-menu {
+		@include unstyled-list;
+		width: 100%;
+		padding-top: rem(10);
+		display: none;
+
+		@include min(lg) {
+			display: block;
+			width: rem(200);
+			background-color: $primary;
+			padding-bottom: rem(10);
+			position: absolute;
+			top: 100%;
+			left: 0;
+			transform: translateY(rem(10));
+			opacity: 0;
+			visibility: hidden;
+			transition: transform $time, opacity $time, visibility $time;
+		}
+
+		li {
+			width: 100%;
+			padding: rem(5 10 5 15);
+
+			a {
+				color: $color-text;
+				transition: text-shadow $time;
+
+				@include min(lg) {
+					color: $white;
+				}
+
+				@include hover {
+					color: $white;
+					text-shadow: -0.025em 0 0.025em $white, 0.025em 0 0.025em $white;
+				}
+			}
+		}
+	}
+}

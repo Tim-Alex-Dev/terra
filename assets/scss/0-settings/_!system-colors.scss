@@ -1,0 +1,4 @@
+// System colors: neutral UI blue (focus outline, admin bar, admin buttons...), not part of the project palette.
+// A separate file so that admin-styles.scss can use them without the rest of the theme settings.
+$system-color: #2271b1;
+$system-color-hover: #135e96;

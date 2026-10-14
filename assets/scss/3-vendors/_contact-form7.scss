@@ -1,0 +1,160 @@
+// sass-lint:disable-all
+
+.wpcf7 {
+	.screen-reader-response {
+		position: absolute;
+		overflow: hidden;
+		clip: rect(1px, 1px, 1px, 1px);
+		height: 1px;
+		width: 1px;
+		margin: 0;
+		padding: 0;
+		border: 0;
+	}
+
+	input[type='submit'] {
+		@extend .btn;
+	}
+
+	form {
+		position: relative;
+
+		.wpcf7-response-output {
+			width: 100%;
+			background-color: transparent;
+			font-family: $font-heading;
+			font-size: rem(18);
+			font-weight: 700;
+			text-align: center;
+			padding: 0;
+			margin-top: rem(20);
+			margin-bottom: 0;
+			border: none;
+		}
+
+		&.init .wpcf7-response-output {
+			display: none;
+		}
+
+		&.sent .wpcf7-response-output {
+			color: $green;
+		}
+
+		&.failed .wpcf7-response-output,
+		&.aborted .wpcf7-response-output {
+			color: $red;
+		}
+
+		&.spam .wpcf7-response-output {
+			color: $red;
+		}
+
+		&.invalid .wpcf7-response-output,
+		&.unaccepted .wpcf7-response-output {
+			color: $red;
+		}
+	}
+
+	.wpcf7-form-control-wrap {
+		display: block;
+		margin-bottom: rem(16);
+	}
+
+	.form-group {
+		margin-bottom: rem(16);
+	}
+
+	label {
+		font-weight: 700;
+	}
+
+	.wpcf7-list-item-label {
+		font-weight: 400;
+		margin-left: rem(5);
+		text-transform: initial;
+	}
+
+	.wpcf7-acceptance {
+		label {
+			display: flex;
+			position: static;
+		}
+
+		.wpcf7-list-item {
+			margin-left: 0;
+		}
+	}
+}
+
+.wpcf7-form-control-wrap {
+	position: relative;
+}
+
+.wpcf7-not-valid-tip {
+	display: block;
+	background-color: $white;
+	color: $red;
+	font-size: rem(14);
+	font-weight: 400;
+	text-align: left;
+	padding: 0;
+	margin: 0.5rem 0;
+}
+
+.use-floating-validation-tip .wpcf7-not-valid-tip {
+	position: absolute;
+	top: 20%;
+	left: 20%;
+	z-index: 100;
+	border: 1px solid $red;
+	background: $white;
+	padding: 0.2em 0.8em;
+}
+
+span.wpcf7-list-item {
+	display: inline-block;
+	margin: 0 0 0 1em;
+}
+
+span.wpcf7-list-item-label::before,
+span.wpcf7-list-item-label::after {
+	content: ' ';
+}
+
+div.wpcf7 {
+	.ajax-loader,
+	.wpcf7-spinner {
+		visibility: hidden;
+		background-image: url('../img/black-loader.svg');
+		background-size: cover;
+		width: rem(24);
+		height: rem(24);
+		position: absolute;
+		top: calc(100% + 3px);
+		left: 0;
+		margin: 0;
+	}
+
+	div.ajax-error {
+		display: none;
+	}
+
+	input[type='file'] {
+		cursor: pointer;
+	}
+
+	input[type='file']:disabled {
+		cursor: default;
+	}
+
+	.wpcf7-submit:disabled {
+		cursor: not-allowed;
+	}
+}
+
+.wpcf7-form.submitting {
+	.ajax-loader,
+	.wpcf7-spinner {
+		visibility: visible;
+	}
+}

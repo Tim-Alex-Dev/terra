@@ -1,0 +1,88 @@
+// Custom admin styles (ACF / ACF Extended). The theme settings are not loaded here, only the system colors.
+@import "0-settings/!system-colors";
+
+// ACF flexible content
+.acf-flexible-content {
+	.layout {
+		border: 2px solid $system-color;
+	}
+}
+
+.acf-field-flexible-content {
+	&:before {
+		display: none !important;
+	}
+
+	> .acf-label {
+		width: 100% !important;
+		float: none !important;
+		margin-bottom: 7px !important;
+	}
+
+	> .acf-input {
+		width: 100% !important;
+	}
+}
+
+.acf-fc-layout-handle {
+	background: $system-color;
+	color: #fff !important;
+	font-size: 1.2rem;
+	font-weight: 600;
+}
+
+.acf-flexible-content
+.layout
+.acf-fc-layout-controls
+.acf-icon.-collapse:hover {
+	color: #fff;
+	background: $system-color-hover;
+}
+
+.acf-field.acf-accordion {
+	border: 2px solid $system-color;
+	margin-top: 3px;
+
+	.acf-label.acf-accordion-title {
+		background: $system-color;
+		color: #fff;
+		font-size: 1.2rem;
+		font-weight: 600;
+	}
+}
+
+// ACF Extended
+.acfe-modal.-open.-full > .acfe-modal-wrapper {
+	max-width: 1100px;
+}
+
+.acfe-flexible-stylised-button {
+	.acf-actions {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.acf-button {
+		background: $system-color;
+		color: #fff;
+		border: 3px solid $system-color;
+		padding: 4px 80px;
+		font-weight: 700;
+		transition: background-color 0.2s, border-color 0.2s;
+
+		&:hover,
+		&:active,
+		&:focus {
+			background: $system-color-hover;
+			color: #fff;
+			border-color: $system-color-hover;
+		}
+	}
+}
+
+// hide ACFE 'Thumbnail' upload button as we are loading this image into theme
+.acf-field-image[data-name="acfe_flexible_thumbnail"],
+.acfe-flexible-field-setting[data-name="acfe_flexible_thumbnail_label"] {
+	display: none;
+}

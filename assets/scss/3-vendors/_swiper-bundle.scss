@@ -1,0 +1,106 @@
+// Swiper (plain CSS, inlined by Sass): base + only the modules used in JS. Another module in JS = import its CSS here
+// (e.g. @import "swiper/modules/effect-fade";)
+@import "swiper/swiper";
+@import "swiper/modules/navigation";
+@import "swiper/modules/pagination";
+@import "swiper/modules/thumbs";
+
+// Look: Swiper CSS variables (Swiper's own selectors are stronger than overrides)
+:root {
+	--swiper-theme-color: #{$white};
+	--swiper-navigation-size: #{rem(32)}; // arrows are 32px (see below), Swiper centers them with this value
+	--swiper-navigation-sides-offset: 10px;
+	--swiper-pagination-bottom: 10px;
+}
+
+.swiper-slide {
+	box-sizing: border-box;
+}
+
+.swiper-pagination {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	&-bullet {
+		width: rem(26);
+		height: rem(26);
+		background-color: transparent;
+		opacity: 1;
+		margin: 0 !important;
+		position: relative;
+
+		&:after {
+			content: '';
+			width: rem(8);
+			height: rem(8);
+			background-color: $white;
+			border-radius: 50%;
+			position: absolute;
+			top: calc(50% - rem(4));
+			left: calc(50% - rem(4));
+			transition: transform $time ease-out;
+		}
+
+		&:not(.swiper-pagination-bullet-active) {
+			&:hover {
+				&:after {
+					transform: scale(1.5);
+				}
+			}
+		}
+
+		&-active {
+			width: rem(16);
+			height: rem(16);
+			background-color: transparent;
+			pointer-events: none;
+
+			&:after {
+				transform: scale(2);
+			}
+		}
+	}
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+	width: rem(32);
+	height: rem(32);
+	display: flex;
+	align-items: center;
+	background-color: $white;
+	border-radius: 50%;
+	margin-top: rem(-16);
+	transition: box-shadow $time;
+
+	@include hover {
+		svg {
+			fill: $primary;
+		}
+	}
+
+	&:after {
+		display: none;
+	}
+
+	svg {
+		width: rem(32);
+		height: rem(32);
+		fill: $black;
+	}
+}
+
+// Note: Swiper's own more specific rule (.swiper-button-prev.swiper-button-disabled, opacity .35) wins over this opacity,
+// exactly as it did in Swiper 8. Raise the specificity here if 0.5 is really wanted.
+.swiper-button-disabled {
+	opacity: 0.5;
+	pointer-events: none;
+}
+
+.swiper[data-slides="1"] {
+	.swiper-button-next,
+	.swiper-button-prev {
+		display: none !important;
+	}
+}

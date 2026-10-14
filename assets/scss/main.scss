@@ -1,0 +1,8 @@
+// ITCSS layers, in this order (files are included by the globs)
+@import "0-settings/*"; // variables, CSS variables, fonts, mixins, rem()
+@import "1-generic/**/*.scss"; // reset, HTML elements, WP core classes, typography, forms, buttons, helpers
+@import "2-layouts/*"; // container + grid, header, navigation, footer
+@import "3-vendors/*"; // Swiper, GLightbox, Nice Select (+ plugin styles from add-ons)
+@import "4-builder/*"; // Page Builder modules + shared module styles
+@import "5-components/*"; // reusable UI pieces
+@import "6-templates/*"; // page templates (page, 404, per project: CPT single/archive)

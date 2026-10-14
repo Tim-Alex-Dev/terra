@@ -1,0 +1,149 @@
+// Buttons: btn + type (solid = no class, .btn-outline) + color (.btn-primary|secondary|white|black) + size (.btn-sm|lg)
+// Color classes only set the --btn-* variables, type classes use them: every type works with every color
+
+.btn {
+	--btn-color: #{$primary}; // main color: background (solid) or border + text (outline)
+	--btn-text: #{$white}; // text on the main color
+	--btn-hover: #{$black}; // background on hover (solid)
+	--btn-hover-text: #{$white}; // text on the hover background
+
+	transition: $default-transition;
+	height: rem(44);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: rem(12);
+	background-color: var(--btn-color);
+	color: var(--btn-text);
+	font-size: rem(16);
+	font-weight: 700;
+	line-height: 1;
+	border: 1px solid var(--btn-color);
+	border-radius: $radius;
+	padding: rem(0 16);
+	text-align: center;
+	text-decoration: none;
+	cursor: pointer;
+
+	@include min(lg) {
+		font-size: rem(18);
+		height: rem(50);
+		padding: rem(0 24);
+	}
+
+	@include min(xl) {
+		padding: rem(0 38);
+	}
+
+	@include hover {
+		background-color: var(--btn-hover);
+		border-color: var(--btn-hover);
+		color: var(--btn-hover-text);
+	}
+
+	&:focus-visible,
+	&:active {
+		background-color: var(--btn-hover);
+		border-color: var(--btn-hover);
+		color: var(--btn-hover-text);
+	}
+
+	&:disabled,
+	&[aria-disabled="true"] {
+		opacity: 0.5;
+		pointer-events: none;
+	}
+
+	svg {
+		flex-shrink: 0;
+		width: rem(20);
+		height: rem(20);
+		transition: none;
+	}
+}
+
+// Types -------------------------------------------
+
+.btn-outline {
+	background-color: transparent;
+	color: var(--btn-color);
+
+	// fills with the main color
+	@include hover {
+		background-color: var(--btn-color);
+		border-color: var(--btn-color);
+		color: var(--btn-text);
+	}
+
+	&:focus-visible,
+	&:active {
+		background-color: var(--btn-color);
+		border-color: var(--btn-color);
+		color: var(--btn-text);
+	}
+}
+
+// Colors -------------------------------------------
+
+.btn-primary {
+	--btn-color: #{$primary};
+	--btn-text: #{$white};
+	--btn-hover: #{$black};
+	--btn-hover-text: #{$white};
+}
+
+.btn-secondary {
+	--btn-color: #{$secondary};
+	--btn-text: #{$white};
+	--btn-hover: #{$black};
+	--btn-hover-text: #{$white};
+}
+
+.btn-white {
+	--btn-color: #{$white};
+	--btn-text: #{$primary};
+	--btn-hover: #{$primary};
+	--btn-hover-text: #{$white};
+}
+
+.btn-black {
+	--btn-color: #{$black};
+	--btn-text: #{$white};
+	--btn-hover: #{$primary};
+	--btn-hover-text: #{$white};
+}
+
+// Sizes (after .btn, so they override its responsive sizes) -------------------------------------------
+
+.btn-sm {
+	height: rem(40);
+	font-size: rem(14);
+	padding: rem(0 20);
+}
+
+.btn-lg {
+	height: rem(50);
+	font-size: rem(18);
+
+	@include min(lg) {
+		height: rem(54);
+		font-size: rem(20);
+	}
+
+	@include min(xl) {
+		padding: rem(0 32);
+	}
+}
+
+// Button group: several buttons in a row with a gap (editor format "Button Group", <p class="btn-group">)
+.btn-group {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: rem(16);
+}
+
+// Form submit buttons look like .btn
+input[type="submit"] {
+	@extend .btn;
+}

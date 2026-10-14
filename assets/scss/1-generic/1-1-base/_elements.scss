@@ -1,0 +1,157 @@
+html {
+	scroll-behavior: smooth;
+	scroll-padding-top: var(--header-scrolled-height); // anchors are not hidden under the fixed header
+
+	@media (prefers-reduced-motion: reduce) {
+		scroll-behavior: auto;
+	}
+}
+
+// Focus: no outline after a mouse click, a clear outline for keyboard users (accessibility)
+:focus:not(:focus-visible) {
+	outline: none;
+}
+
+:focus-visible {
+	outline: 2px solid $system-color;
+	outline-offset: 2px;
+}
+
+body {
+	min-height: 100dvh;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	background-color: $white;
+	color: $color-text;
+	font-size: rem($font-size-base);
+	font-family: $font-text;
+	font-weight: $font-weight-base;
+	line-height: $line-height-base;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	overflow-x: hidden;
+
+	&.is-menu-open {
+		overflow: hidden;
+	}
+}
+
+img {
+	height: auto;
+	max-width: 100%;
+}
+
+figure {
+	margin: rem(20 0);
+}
+
+p {
+	margin-top: 0;
+	margin-bottom: rem(20);
+}
+
+// Links
+a {
+	color: $color-link;
+	text-decoration: none;
+	transition: color $time, opacity $time, transform $time;
+
+	&:hover,
+	&:focus,
+	&:active {
+		color: $color-link-hover;
+	}
+
+	svg {
+		transition: none;
+	}
+}
+
+hr {
+	background-color: $black;
+	border: 0;
+	height: 1px;
+	margin: rem(20 0);
+}
+
+strong, b {
+	font-weight: 700;
+}
+
+dfn, cite, em, i {
+	font-style: italic;
+}
+
+blockquote {
+	font-weight: 700;
+	margin: 2.5em 1em;
+}
+
+address {
+	margin: rem(0 0 20);
+}
+
+pre {
+	max-width: 100%;
+	border: 1px solid $grey;
+	font-family: monospace;
+	font-size: rem(14);
+	margin: rem(16 0);
+	padding: rem(16);
+	border-radius: $radius;
+	overflow: auto;
+}
+
+code, var {
+	border: 1px solid $grey;
+	font-family: monospace;
+	font-size: rem(14);
+	padding: rem(2 6);
+	border-radius: $radius;
+}
+
+pre code,
+code var {
+	border: 0;
+	padding: 0;
+}
+
+kbd {
+	background-color: $black;
+	color: $white;
+	font-family: monospace;
+	font-size: rem(14);
+	border-radius: $radius;
+	padding: rem(3 6);
+}
+
+mark {
+	background-color: transparent;
+	font-weight: 500;
+}
+
+abbr {
+	border-bottom: 1px dotted;
+	cursor: help;
+}
+
+svg {
+	transition: fill $time, stroke $time, opacity $time, transform $time;
+}
+
+embed,
+iframe,
+object {
+	max-width: 100%;
+}
+
+// Video embeds keep the 16:9 ratio when they get the full width on smaller screens
+iframe[src*="youtube"],
+iframe[src*="vimeo"] {
+	@include max(lg) {
+		width: 100%;
+		height: auto;
+		aspect-ratio: 16 / 9;
+	}
+}

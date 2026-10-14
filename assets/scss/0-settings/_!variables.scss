@@ -1,0 +1,78 @@
+@use "sass:map";
+
+// Colors: every color is a HEX value with its own variable (each project sets its palette)
+$primary: #df0000;
+$secondary: #38bdf8;
+
+$black: #000;
+$white: #fff;
+$grey: #bdbdbd;
+$red: #dc3232;
+$green: #6dc22e;
+
+$color-text: $red;
+$color-heading: $red;
+$color-link: $red;
+$color-link-hover: $red;
+
+
+// Fonts
+$font-heading: 'Arial', sans-serif;
+$font-text: 'Arial', sans-serif;
+$font-alt: 'Arial', sans-serif; // extra font for selected elements
+
+
+// Typography
+$font-size-base: 16;
+$font-weight-base: 400;
+$line-height-base: 1.6;
+
+$radius: rem(8); // global border-radius (can be 0, keep the variable)
+
+
+// Transitions
+$time: 0.5s;
+$default-transition: all $time 0s;
+
+
+// Breakpoints: min(lg) = (min-width: 1025px), max(lg) = (max-width: 1024px). Keep in sync with assets/js/_vars.js
+$grid-breakpoints: (
+				xs: 0,
+				md: 640px,
+				lg: 1025px,
+				xl: 1440px,
+);
+
+// Grid and container (2-layouts/_grid.scss)
+$grid-gutter-width: 30px;
+
+$container-max-widths: (
+				xs: 100%,
+				md: 100%,
+				lg: 100%,
+				xl: 1400px,
+);
+
+// container padding, both sides together
+$container-gutter-x-values: (
+				xs: 30px,
+				md: 60px,
+				lg: 100px,
+				xl: 100px,
+);
+
+$container-fluid-max-width: 1920px;
+
+:root {
+	--container-width: 100%;
+
+	@each $bp in map.keys($grid-breakpoints) {
+		@media (min-width: map.get($grid-breakpoints, $bp)) {
+			--container-width: #{map.get($container-max-widths, $bp)};
+			--container-gutter-x: #{map.get($container-gutter-x-values, $bp)};
+		}
+	}
+
+	--header-height: #{rem(100)}; // fixed header
+	--header-scrolled-height: #{rem(70)};
+}

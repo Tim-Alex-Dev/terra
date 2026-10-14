@@ -1,0 +1,16 @@
+// Toggle
+.js-toggle {
+	svg {
+		transition: transform $time;
+	}
+
+	&.is-open {
+		svg {
+			transform: rotate(180deg);
+		}
+	}
+}
+
+.js-toggle-content {
+	display: none;
+}

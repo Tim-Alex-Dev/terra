@@ -1,0 +1,33 @@
+// Accordion (assets/js/components/accordion.js): .js-accordion > .js-accordion-item > button.js-accordion-title + .js-accordion-content
+.js-accordion {
+	&-item {
+		&.is-open {
+			.js-accordion-title {
+				svg {
+					transform: rotate(180deg);
+				}
+			}
+		}
+	}
+
+	&-title {
+		cursor: pointer;
+
+		svg {
+			transition: transform $time;
+		}
+	}
+
+	&-content {
+		display: none;
+	}
+}
+
+// the title is a <button>: reset the browser look (:where = no specificity, any module style wins)
+:where(button.js-accordion-title) {
+	width: 100%;
+	background: none;
+	border: 0;
+	padding: 0;
+	text-align: left;
+}

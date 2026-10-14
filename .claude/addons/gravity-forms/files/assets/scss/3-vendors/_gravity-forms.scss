@@ -1,0 +1,115 @@
+.gform_wrapper.gravity-theme {
+	.gform_heading {
+		@extend .h2;
+	}
+
+	form {
+		position: relative;
+
+		.gform_body {
+			.gfield {
+				position: relative;
+			}
+
+			fieldset.gfield {
+				.gfield_label {
+					margin-bottom: 20px;
+				}
+			}
+		}
+
+		.gform_fields {
+			gap: rem(16);
+		}
+
+		.gfield_label {
+			font-size: 1em;
+			font-weight: 400;
+			margin-bottom: 1em;
+		}
+
+		input[type=color],
+		input[type=date],
+		input[type=datetime-local],
+		input[type=datetime],
+		input[type=email],
+		input[type=month],
+		input[type=number],
+		input[type=password],
+		input[type=search],
+		input[type=tel],
+		input[type=text],
+		input[type=time],
+		input[type=url],
+		input[type=week],
+		select,
+		textarea {
+			@extend %field-input;
+		}
+
+		.gfield_checkbox {
+			display: flex;
+			flex-direction: column;
+			gap: rem(16);
+			padding-left: rem(20);
+
+			@include min(md) {
+				padding-left: rem(40);
+			}
+
+			label {
+				font-size: 1em;
+			}
+		}
+
+		.gchoice {
+			display: flex;
+			align-items: center;
+			gap: rem(20);
+
+			input {
+				flex-shrink: 0;
+			}
+		}
+
+		.gfield_validation_message,
+		.validation_message {
+			background: transparent;
+			border: none;
+			font-size: rem(14);
+			line-height: 1;
+			padding: 0;
+		}
+
+		.nice-select .current {
+			font-weight: 400;
+		}
+
+		.gform_footer {
+			input[type="submit"] {
+				@extend .btn;
+				margin-bottom: 0;
+			}
+
+			input[type="image"] {
+				width: rem(24);
+				height: rem(24);
+				margin: 0 !important;
+				position: absolute;
+				bottom: rem(5);
+				right: rem(5);
+
+				@include min(md) {
+					width: rem(30);
+					height: rem(30);
+					bottom: rem(9);
+					right: rem(9);
+				}
+			}
+		}
+	}
+}
+
+.gform_confirmation_message {
+	@extend .text-lg;
+}

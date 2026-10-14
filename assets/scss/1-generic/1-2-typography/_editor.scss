@@ -1,0 +1,61 @@
+// Custom Style Formats (offered in the WYSIWYG editor, see inc/editor.php):
+.text-sm {
+	font-size: rem(14);
+}
+
+.text-lg {
+	font-size: rem(18);
+
+	@include min(lg) {
+		font-size: rem(22);
+	}
+}
+
+// Simple text link: shared by content links (.editor) and plugin links (e.g. WooCommerce add-on) through @extend %link
+%link {
+	color: $color-link;
+	text-decoration: none;
+
+	@include hover {
+		color: $color-link-hover;
+		text-decoration: underline;
+	}
+}
+
+.blockquote {
+	font-size: rem(20);
+	margin: rem(50 30);
+
+	p {
+		font-weight: 700;
+	}
+
+	cite {
+		display: block;
+		color: inherit;
+		font-weight: 400;
+		font-style: normal;
+		margin-top: rem(16);
+		margin-bottom: 0;
+	}
+}
+
+// Styles for formatted text (e.g. post/page content, WYSIWYG custom fields)
+.editor {
+	> *:last-child {
+		margin-bottom: 0;
+	}
+
+	@include headings {
+		margin-top: rem(20);
+
+		&:first-child {
+			margin-top: 0;
+		}
+	}
+
+	// simple text links (links with a class, e.g. buttons, keep their own styles)
+	a:not([class]) {
+		@extend %link;
+	}
+}

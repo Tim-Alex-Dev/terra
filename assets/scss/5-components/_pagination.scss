@@ -1,0 +1,50 @@
+.pagination {
+	margin-top: rem(50);
+
+	@include min(lg) {
+		margin-top: rem(70);
+	}
+
+	ul {
+		@include unstyled-list;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-wrap: wrap;
+		gap: rem(8);
+		border: none;
+
+		li {
+			border: none;
+			a, span {
+				transition: color $time, background-color $time, border-color $time;
+				min-width: rem(36);
+				height: rem(36);
+				background-color: $white;
+				color: $black;
+				font-size: rem(16);
+				line-height: 1;
+				border: 1px solid $black;
+				border-radius: $radius;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				padding: rem(0 7);
+
+				&.current {
+					&:not(.dots) {
+						background-color: $primary;
+						color: $white;
+						border-color: $primary;
+					}
+				}
+
+				@include hover {
+					background-color: $white;
+					color: $primary;
+					border-color: $primary;
+				}
+			}
+		}
+	}
+}

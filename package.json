@@ -1,0 +1,52 @@
+{
+  "name": "terra",
+  "version": "1.0.0",
+  "description": "Starter theme for WordPress development",
+  "license": "GPL-2.0-or-later",
+  "engines": {
+    "node": ">=20.19"
+  },
+  "scripts": {
+    "start": "gulp",
+    "watch": "gulp watch",
+    "build": "gulp prod",
+    "lint": "npm run lint:scss && npm run lint:js",
+    "lint:scss": "stylelint \"assets/scss/**/*.scss\"",
+    "lint:scss:fix": "stylelint \"assets/scss/**/*.scss\" --fix",
+    "lint:js": "eslint \"assets/js/**/*.js\" gulpfile.js eslint.config.js"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.29.0",
+    "@babel/preset-env": "^7.29.0",
+    "@eslint/js": "^10.0.1",
+    "babel-loader": "^10.0.0",
+    "browser-sync": "^3.0.4",
+    "browserslist": "^4.29.0",
+    "eslint": "^10.0.0",
+    "globals": "^17.0.0",
+    "gulp": "^5.0.1",
+    "gulp-if": "^3.0.0",
+    "gulp-replace": "^1.1.4",
+    "gulp-sass": "^6.0.1",
+    "gulp-sass-glob": "^1.1.0",
+    "gulp-size": "^4.0.1",
+    "lightningcss": "^1.33.0",
+    "plugin-error": "^2.0.1",
+    "sass": "^1.104.0",
+    "stylelint": "^17.0.0",
+    "stylelint-config-recommended-scss": "^17.0.0",
+    "webpack": "^5.101.0",
+    "webpack-stream": "^7.0.0"
+  },
+  "dependencies": {
+    "glightbox": "^3.3.1",
+    "plyr": "^3.8.4",
+    "swiper": "^14.2.0"
+  },
+  "browserslist": [
+    "last 1 version",
+    "> 1%",
+    "not dead"
+  ],
+  "private": true
+}

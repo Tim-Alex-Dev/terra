@@ -1,0 +1,207 @@
+// WordPress core output: admin bar (keeps WordPress' own sizes and 782px breakpoint), alignments, captions, galleries
+
+// Adminbar -------------------------------------------
+#wpadminbar {
+	transition: transform $time !important;
+	transform: translateY(-100%);
+
+	&:hover {
+		#wp-admin-bar-site-name {
+			background-color: transparent !important;
+		}
+	}
+
+	&:not(.is-expanded) {
+		&:hover {
+			transform: translateY(0);
+
+			#wp-admin-bar-site-name {
+				transform: translateY(0);
+			}
+		}
+	}
+
+	&.is-expanded {
+		transform: translateY(0);
+
+		#wp-admin-bar-site-name {
+			transform: translateY(0);
+
+			&:before {
+				background-color: $system-color;
+			}
+
+			&:after {
+				transform: rotate(-45deg);
+				font-size: 20px !important;
+			}
+		}
+	}
+
+	.ab-top-menu>.menupop>.ab-sub-wrapper {
+		top: 100%;
+	}
+
+	.ab-top-secondary {
+		@include max(782) {
+			position: absolute;
+			top: 0;
+			right: 0;
+
+			>.menupop>.ab-sub-wrapper {
+				right: 0;
+				left: auto;
+			}
+		}
+	}
+
+	#wp-admin-bar-root-default {
+		@include max(md) {
+			display: flex;
+
+			> li {
+				flex-shrink: 0;
+			}
+		}
+	}
+
+	// hide some menu items to prevent horizontal overflow
+	ul#wp-admin-bar-root-default>li {
+		&#wp-admin-bar-wpseo-menu {
+			@include max(782) {
+				display: none !important;
+			}
+		}
+	}
+}
+
+#wp-admin-bar-site-name {
+	display: inline-flex !important;
+	background-color: $black !important;
+	position: relative;
+	transform: translateY(46px);
+	transition: transform $time !important;
+
+	@include min(783) {
+		transform: translateY(32px);
+	}
+
+	&:before,
+	&:after {
+		width: 46px;
+		height: 46px;
+
+		@include min(783) {
+			width: 32px;
+			height: 32px;
+		}
+	}
+
+	&:before {
+		content: '' !important;
+		display: block;
+		background-color: $black;
+		position: absolute;
+		top: 0;
+		right: 0;
+		transition: background-color $time !important;
+	}
+
+	&:after {
+		content: "\f109" !important;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		font-family: dashicons;
+		font-size: 18px;
+		transition: transform $time, font-size $time !important;
+		cursor: pointer;
+		position: relative;
+	}
+
+	&:hover {
+		&:before {
+			background-color: $system-color-hover;
+		}
+
+		&:after {
+			font-size: 22px;
+		}
+	}
+}
+
+
+// Alignments -------------------------------------------
+.alignleft {
+	display: inline;
+	float: left;
+	margin-right: rem(24);
+}
+
+.alignright {
+	display: inline;
+	float: right;
+	margin-left: rem(24);
+}
+
+.aligncenter {
+	clear: both;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+// Captions -------------------------------------------
+.wp-caption {
+	margin-bottom: rem(24);
+	max-width: 100%;
+
+	img[class*="wp-image-"] {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.wp-caption-text {
+		margin: rem(16 0);
+	}
+}
+
+span {
+	&.wp-caption-text {
+		text-align: center;
+	}
+}
+
+// Galleries -------------------------------------------
+.gallery {
+	--gallery-gap: #{rem(16)};
+
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--gallery-gap);
+	margin: rem(20 0);
+}
+
+.gallery-item {
+	display: inline-block;
+	text-align: center;
+	width: calc(50% - var(--gallery-gap));
+	margin: 0;
+
+	@include min(md) {
+		width: calc((100% - var(--gallery-gap) * 2) / 3);
+	}
+
+	@for $i from 2 through 9 {
+		.gallery-columns-#{$i} & {
+			@include min(lg) {
+				width: calc((100% - var(--gallery-gap) * ($i - 1)) / $i);
+			}
+		}
+	}
+}
+
+.gallery-caption {
+	display: block;
+}
