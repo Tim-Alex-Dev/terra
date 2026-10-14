@@ -34,7 +34,7 @@ Rules for working on the theme (also read by Claude Code) are in `.claude/CLAUDE
 | Project | Terra |
 | Description | Website for the Ukrainian locale of the German original website https://www.wortmann.de/ (modern computers, laptops, monitors etc.). The goal is to replicate all fonts, colors, styles, menu structure, logos, icons and buttons of the original home page in this project, then use those styles to build a few more pages such as About us. A full visual copy only: all links point to the original website. Work starts with the home page. Tagline: "Ukrainian TERRA site: computers, laptops and monitors" |
 | Design source | Reference website: https://www.wortmann.de/ (home page first) |
-| Repository | `https://github.com/Tim-Alex-Dev/terra` (`master` = production, `develop` = default + base branch) |
+| Repository | `https://github.com/Tim-Alex-Dev/terra` (`master` = production + default branch, `develop` = base branch) |
 | Local URL | `https://terra.loc` (Laragon, SSL) |
 | Theme | terra, folder `wp-content/themes/terra`, text domain `terra` |
 | WordPress | 7.1.3, English (`en_US`), timezone Europe/Kyiv, week starts Monday, date `d.m.Y`, time `H:i`, permalinks `/%postname%/`, search engines discouraged, comments and avatars off, uploads not in month folders, image sizes medium 768 / large 1920, table prefix `trr_` |
@@ -55,7 +55,7 @@ Logins, passwords and license keys are never stored in the repository: ask the p
 1. Install a local server with PHP and MySQL in the versions above (e.g. Laragon), Node.js (nvm) and Git.
 2. Create the site: WordPress in a new site folder, an empty database (charset above), `wp-config.php` with the local
    constants above. Or get a database dump + `wp-content/uploads/` from the project lead and import them.
-3. Clone the theme: `git clone https://github.com/Tim-Alex-Dev/terra.git wp-content/themes/terra` (checks out `develop`, the default branch).
+3. Clone the theme: `git clone https://github.com/Tim-Alex-Dev/terra.git wp-content/themes/terra`, then `git checkout develop` (the base branch; `master` is the default).
 4. Install and activate the required plugins (ACF Pro license key from the project lead), activate the theme.
 5. In the theme folder: `npm i`, then `gulp` (watcher) or `gulp watch` (+ BrowserSync on `devUrl`). Before a deploy: `gulp prod`.
 6. ACF field groups load from `acf-json/`. If WP admin shows "Sync available" (ACF > Field Groups), sync them.
