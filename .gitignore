@@ -6,5 +6,4 @@ Thumbs.db
 dist
 vendor
 .npm
-.claude/settings.local.json
-.claude/tasks/
+.claude/

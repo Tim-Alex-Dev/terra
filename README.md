@@ -56,6 +56,7 @@ Logins, passwords and license keys are never stored in the repository: ask the p
 2. Create the site: WordPress in a new site folder, an empty database (charset above), `wp-config.php` with the local
    constants above. Or get a database dump + `wp-content/uploads/` from the project lead and import them.
 3. Clone the theme: `git clone https://github.com/Tim-Alex-Dev/terra.git wp-content/themes/terra`, then `git checkout develop` (the base branch; `master` is the default).
+   `.claude/` (rules, add-ons, tests, project profile) is not in git: copy it from the starter or from the project lead.
 4. Install and activate the required plugins (ACF Pro license key from the project lead), activate the theme.
 5. In the theme folder: `npm i`, then `gulp` (watcher) or `gulp watch` (+ BrowserSync on `devUrl`). Before a deploy: `gulp prod`.
 6. ACF field groups load from `acf-json/`. If WP admin shows "Sync available" (ACF > Field Groups), sync them.
@@ -197,7 +198,7 @@ assets/
   scss/         see SCSS
 ```
 
-### `.claude/` (never built or deployed)
+### `.claude/` (local only: never built, deployed or committed, in `.gitignore`)
 
 | Path | Purpose |
 | --- | --- |
