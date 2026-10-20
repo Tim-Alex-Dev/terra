@@ -10,5 +10,8 @@
     "scss/at-extend-no-missing-placeholder": null,
     "scss/comment-no-empty": null,
     "scss/load-partial-extension": null
-  }
+  },
+  "ignoreFiles": [
+    "assets/scss/wp-admin-colors/**"
+  ]
 }

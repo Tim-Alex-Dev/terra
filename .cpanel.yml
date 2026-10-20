@@ -1,0 +1,6 @@
+---
+# cPanel Git deployment of master: deploy.sh builds the theme and copies it into DEPLOYPATH (files not in the build are removed there)
+deployment:
+  tasks:
+    - export DEPLOYPATH=$HOME/public_html/wp-content/themes/terra/
+    - /bin/bash deploy.sh

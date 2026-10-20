@@ -281,7 +281,7 @@ Entry files in `assets/scss/` (each -> `dist/css/{name}.css`):
 | `main.scss` | Front-end, all layers below |
 | `editor-styles.scss` | Classic editor (settings + generic layers only) |
 | `admin-styles.scss` | wp-admin (system colors only, no theme settings): ACF / ACFE look (buttons and ACF's own hard-coded blue on the editing screens follow the admin scheme color `--wp-admin-theme-color`; ACF's Field Groups pages keep their blue), empty ACFE columns (all fields hidden) take no space |
-| `admin-colors.scss` | wp-admin color scheme in the project colors: WordPress core's scheme module (`wp-admin/css/colors/_admin`) configured with $grey-950 menu, $primary highlight/buttons/links (HEX values, a configured @use cannot load the settings) |
+| `admin-colors.scss` | wp-admin color scheme in the project colors: WordPress core's scheme module (copy in `assets/scss/wp-admin-colors/`, WordPress 7.1.3, so the build works without WordPress around the theme) configured with $grey-950 menu, $primary highlight/buttons/links (HEX values, a configured @use cannot load the settings) |
 | `login.scss` | Login screen |
 | `plyr.scss` | Video player, loaded by the lightbox only when a video opens |
 
@@ -397,8 +397,25 @@ ACF setup, the headings component, JS helpers. New helper or component = new tes
 
 ## Deployment
 
-Build with `gulp prod`, then upload the theme folder **without** `node_modules/` and dot-folders (`.claude/`, `.git/`).
-Automatic build + FTP deploy with GitLab CI: `.claude/addons/gitlab-ci/`.
+Branches: `develop` = local work, `master` = what is pushed to GitHub and deployed (merge `develop` -> `master`, push `master`).
+
+**Dev site (Hostiq, cPanel Git Version Control)** builds on the server: cPanel pulls `master`, `.cpanel.yml` runs `deploy.sh`
+(finds Node.js 20.19+, `npm ci`, `gulp prod`) and copies the built theme to `~/public_html/wp-content/themes/terra/` with
+`rsync --delete` (files there that are not in the build are removed), without the files in `deploy-exclude.txt`
+(sources, `node_modules/`, dot-folders, configs). `node_modules/` and `dist/` stay in the cPanel repository (git-ignored: clean tree).
+
+One-time setup in cPanel:
+1. **Node.js 20.19+** on the server: cPanel > Setup Node.js App (CloudLinux `/opt/alt/alt-nodejs*`), or nvm in the account.
+2. **Read access to the private GitHub repo**: Terminal (or SSH) `ssh-keygen -t ed25519 -f ~/.ssh/github_terra -N ""`, then
+   `~/.ssh/config`: `Host github.com` / `IdentityFile ~/.ssh/github_terra`. GitHub > repo Settings > Deploy keys > add
+   `~/.ssh/github_terra.pub` (read-only).
+3. cPanel > Git Version Control > Create: clone URL `git@github.com:Tim-Alex-Dev/terra.git`, repository path
+   `~/repositories/terra`, branch `master`.
+
+Each deploy: push `master`, then Git Version Control > Manage > Pull or Deploy > **Update from Remote** > **Deploy HEAD Commit**.
+Deploy log: `~/.cpanel/logs/vc_*_git_deploy.log`. Database content (pages, ACF data, settings) is not part of git.
+
+Automatic build + FTP deploy with GitLab CI (other projects): `.claude/addons/gitlab-ci/`.
 
 ## Known open points
 

@@ -1,6 +1,6 @@
-// wp-admin color scheme from core's scheme module. HEX = the palette ($grey-950, $primary, $white): keep in sync
+// wp-admin color scheme from the core scheme module (wp-admin-colors/ = WordPress 7.1.3 wp-admin/css/colors). HEX = the palette ($grey-950, $primary, $white): keep in sync
 @use "sass:color";
-@use "../../../../../wp-admin/css/colors/admin" with (
+@use "wp-admin-colors/admin" with (
 	$scheme-name: "theme",
 	$base-color: #1e1e1e,
 	$highlight-color: #784d96,
