@@ -32,5 +32,14 @@ module.exports = [
 			sourceType: 'commonjs',
 			globals: globals.node
 		}
+	},
+	{
+		// release script (Node.js, ES module)
+		files: ['release.mjs'],
+		languageOptions: {
+			ecmaVersion: 'latest',
+			sourceType: 'module',
+			globals: globals.node
+		}
 	}
 ];

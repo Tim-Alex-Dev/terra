@@ -7,6 +7,7 @@
 /.cpanel.yml
 /deploy.sh
 /deploy-exclude.txt
+/release.mjs
 /.editorconfig
 /.gitattributes
 /.gitignore

@@ -58,7 +58,7 @@ Logins, passwords and license keys are never stored in the repository: ask the p
 3. Clone the theme: `git clone https://github.com/Tim-Alex-Dev/terra.git wp-content/themes/terra`, then `git checkout develop` (the base branch; `master` is the default).
    `.claude/` (rules, add-ons, tests, project profile) is not in git: copy it from the starter or from the project lead.
 4. Install and activate the required plugins (ACF Pro license key from the project lead), activate the theme.
-5. In the theme folder: `npm i`, then `gulp` (watcher) or `gulp watch` (+ BrowserSync on `devUrl`). Before a deploy: `gulp prod`.
+5. In the theme folder: `npm i`, then `gulp` (watcher) or `gulp watch` (+ BrowserSync on `devUrl`). Deploy: `npm run release` (see [Deployment](#deployment)).
 6. ACF field groups load from `acf-json/`. If WP admin shows "Sync available" (ACF > Field Groups), sync them.
 7. Check: `npm run lint`, `bash .claude/tests/run.sh`.
 
@@ -398,22 +398,25 @@ ACF setup, the headings component, JS helpers. New helper or component = new tes
 
 ## Deployment
 
-Branches: `develop` = local work, `master` = what is pushed to GitHub and deployed (merge `develop` -> `master`, push `master`).
+Branches: `develop` = local work (no `dist/`, it is git-ignored), `master` = what is pushed to GitHub and deployed.
+Never merge `master` back into `develop` (it would bring the built `dist/` along).
 
-**Dev site (Hostiq, cPanel Git Version Control)** builds on the server: cPanel pulls `master`, `.cpanel.yml` runs `deploy.sh`
-(finds Node.js 20.19+, `npm ci`, `gulp prod`) and copies the built theme to `~/public_html/wp-content/themes/terra/` with
-`rsync --delete` (files there that are not in the build are removed), without the files in `deploy-exclude.txt`
-(sources, `node_modules/`, dot-folders, configs). `node_modules/` and `dist/` stay in the cPanel repository (git-ignored: clean tree).
+**Release** (on `develop`, everything committed): `npm run release` (`release.mjs`) runs `gulp prod`, merges `develop` into
+`master` in a temporary git worktree, commits the built `dist/` there (only `master` tracks it) and pushes `master`.
+This folder stays on `develop`; no build happens on the server.
+
+**Dev site (Hostiq, cPanel Git Version Control)** only copies: cPanel pulls `master`, `.cpanel.yml` runs `deploy.sh`, which copies
+the theme to `~/public_html/wp-content/themes/terra/` with `rsync --delete` (files there that are not in the theme are removed),
+without the files in `deploy-exclude.txt` (sources, dot-folders, configs, build tools). No Node.js needed on the server.
 
 One-time setup in cPanel:
-1. **Node.js 20.19+** on the server: cPanel > Setup Node.js App (CloudLinux `/opt/alt/alt-nodejs*`), or nvm in the account.
-2. **Read access to the private GitHub repo**: Terminal (or SSH) `ssh-keygen -t ed25519 -f ~/.ssh/github_terra -N ""`, then
+1. **Read access to the private GitHub repo**: Terminal (or SSH) `ssh-keygen -t ed25519 -f ~/.ssh/github_terra -N ""`, then
    `~/.ssh/config`: `Host github.com` / `IdentityFile ~/.ssh/github_terra`. GitHub > repo Settings > Deploy keys > add
    `~/.ssh/github_terra.pub` (read-only).
-3. cPanel > Git Version Control > Create: clone URL `git@github.com:Tim-Alex-Dev/terra.git`, repository path
+2. cPanel > Git Version Control > Create: clone URL `git@github.com:Tim-Alex-Dev/terra.git`, repository path
    `~/repositories/terra`, branch `master`.
 
-Each deploy: push `master`, then Git Version Control > Manage > Pull or Deploy > **Update from Remote** > **Deploy HEAD Commit**.
+Each deploy: `npm run release`, then Git Version Control > Manage > Pull or Deploy > **Update from Remote** > **Deploy HEAD Commit**.
 Deploy log: `~/.cpanel/logs/vc_*_git_deploy.log`. Database content (pages, ACF data, settings) is not part of git.
 
 Automatic build + FTP deploy with GitLab CI (other projects): `.claude/addons/gitlab-ci/`.
