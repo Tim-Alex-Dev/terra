@@ -1,54 +1,137 @@
+// Footer: link columns (2 / 3 / one row) + bottom bar
 .site-footer {
 	flex-shrink: 0;
 	width: 100%;
-	background-color: $black;
-	color: $white;
-	padding: rem(50 0);
+	background-color: $grey-950;
+	color: $grey-450;
+	font-size: rem(12);
 
-	> .container {
+	a {
+		color: $grey-450;
+		text-decoration: none;
+		transition: color $time;
+
+		@include hover {
+			color: $white;
+		}
+	}
+
+	&__bottom {
+		padding: rem(30 0);
+		border-top: 1px solid $grey-800;
+
+		> .container {
+			display: flex;
+			flex-direction: column-reverse;
+			align-items: center;
+			gap: rem(25);
+
+			@include min(md) {
+				flex-direction: row;
+				justify-content: space-between;
+			}
+		}
+	}
+
+	&__logo {
+		flex-shrink: 0;
+		display: block;
+		line-height: 0;
+
+		img {
+			width: auto;
+			height: rem(28);
+		}
+	}
+
+	&__legal {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: rem(35);
+		gap: rem(10);
 
-		@include min(lg) {
+		@include min(md) {
 			flex-direction: row;
-			justify-content: space-between;
+			flex-wrap: wrap;
+			justify-content: flex-end;
+			gap: rem(0 5);
 		}
 	}
 
 	&__copyright {
-		font-size: rem(14);
-		margin-top: rem(30);
-		text-align: center;
+		padding: rem(0 5);
+	}
+}
 
-		@include min(lg) {
-			text-align: right;
+// Columns
+.footer-links {
+	@include unstyled-list;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: rem(30 20);
+	padding: rem(60 0);
+
+	@include min(md) {
+		grid-template-columns: repeat(3, 1fr);
+		gap: rem(30);
+	}
+
+	@include min(lg) {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		padding: rem(90 0);
+	}
+
+	&__container {
+		@extend .container;
+	}
+
+	&__title {
+		margin: 0;
+		color: $white;
+		font-size: rem(14);
+		font-weight: 700;
+		line-height: 1.1;
+	}
+
+	> li > a {
+		color: $white;
+		font-size: rem(14);
+		font-weight: 700;
+	}
+
+	.sub-menu {
+		@include unstyled-list;
+		padding-top: rem(6);
+
+		a {
+			font-size: rem(14);
+			line-height: rem(24);
 		}
 	}
 }
 
-.footer-links {
+// Bottom bar links
+.footer-bottom-links {
 	@include unstyled-list;
 	display: flex;
 	flex-direction: column;
-	gap: rem(16);
-	text-align: center;
+	align-items: center;
+	gap: rem(10);
 
-	@include min(lg) {
+	@include min(md) {
 		flex-direction: row;
-		gap: rem(30);
-	}
-
-	li {
-		line-height: 1;
+		flex-wrap: wrap;
+		gap: 0;
 	}
 
 	a {
-		color: $white;
+		padding: rem(0 5);
+		font-size: rem(14);
 
-		@include hover {
-			color: $primary;
+		@include min(md) {
+			font-size: rem(12);
 		}
 	}
 }

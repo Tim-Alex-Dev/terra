@@ -10,11 +10,15 @@ function it_setup() {
 	add_theme_support( 'title-tag' );
 	add_theme_support( 'post-thumbnails' );
 
-	// custom image sizes: add_image_size( 'name', $width, $height, $crop ); (only if really needed)
+	// ACF image field previews in wp-admin
+	add_image_size( 'admin-preview', 300, 300 );
+
+	// other custom image sizes: add_image_size( 'name', $width, $height, $crop ); (only if really needed)
 
 	register_nav_menus( [
-		'main'   => esc_html__( 'Main Nav', 'terra' ),
-		'footer' => esc_html__( 'Footer Nav', 'terra' ),
+		'main'          => esc_html__( 'Main Nav', 'terra' ),
+		'footer'        => esc_html__( 'Footer Nav (columns)', 'terra' ),
+		'footer-bottom' => esc_html__( 'Footer Bottom Nav', 'terra' ),
 	] );
 
 	add_theme_support( 'html5', [

@@ -1,43 +1,41 @@
 @use "sass:map";
 
 // Colors: every color is a HEX value with its own variable (each project sets its palette)
-// Palette of the wortmann.de home page (TERRA). Semi-transparent shadows/borders of the original (black/white with alpha) are not listed.
-$primary: #784d96; // TERRA purple: logo, links, h1-h3, login, search icon, slider arrows and active dot
-$secondary: #f29400; // orange: notice bar button (hidden by default)
-
-$secondary-border: #d98400; // notice bar button border
-$secondary-hover: #bf7500; // notice bar button hover / focus / active background
-$secondary-hover-border: #9b5f00; // notice bar button hover border
-$secondary-focus-border: #593600; // notice bar button focus border
+$primary: #784d96;
 
 $black: #000;
-$white: #fff; // page background, footer headings, dropdowns
-$grey-950: #1e1e1e; // footer background
-$grey-925: #2a2a29; // notice bar border
-$grey-900: #2f2f2f; // dropdown link hover text
-$grey-875: #333; // default button text on hover / focus
-$grey-850: #3c3c3b; // notice bar background
-$grey-800: #3c3c3c; // body text, dropdown links, footer bottom divider
-$grey-700: #555; // top menu links and arrows
-$grey-600: #707173; // search field text
-$grey-550: #888; // mobile menu toggle bars
-$grey-525: #8c8c8c; // default button focus border
-$grey-500: #999; // pre border
-$grey-475: #9c9e9f; // disabled dropdown item, icon in the country switcher
-$grey-450: #9d9d9d; // footer text and links, slider dots border
-$grey-400: #adadad; // default button hover border
-$grey-350: #b1b3b4; // disabled / readonly field background
-$grey-300: #ccc; // search field and button border
-$grey-250: #d4d4d4; // default button active + focus background
-$grey-200: #ddd; // mobile menu toggle border
-$grey-150: #e5e5e5; // dropdown divider
-$grey-125: #e6e6e6; // default button hover background
-$grey-100: #eee; // main menu bottom border
-$grey-75: #f5f5f5; // dropdown / menu link hover background, pre background
-$grey-50: #f6f6f6; // product tiles background
-$grey: $grey-300; // starter default border / neutral color
-$red: #dc3232; // form errors (starter, not on the original home page)
-$green: #6dc22e; // success messages (starter, not on the original home page)
+$white: #fff;
+$grey-950: #1e1e1e;
+$grey-925: #2a2a29;
+$grey-900: #2f2f2f;
+$grey-875: #333;
+$grey-850: #3c3c3b;
+$grey-800: #3c3c3c;
+$grey-700: #555;
+$grey-600: #707173;
+$grey-550: #888;
+$grey-525: #8c8c8c;
+$grey-500: #999;
+$grey-475: #9c9e9f;
+$grey-450: #9d9d9d;
+$grey-400: #adadad;
+$grey-350: #b1b3b4;
+$grey-300: #ccc;
+$grey-250: #d4d4d4;
+$grey-200: #ddd;
+$grey-150: #e5e5e5;
+$grey-125: #e6e6e6;
+$grey-100: #eee;
+$grey-75: #f5f5f5;
+$grey-50: #f6f6f6;
+$grey: $grey-300;
+$red: #dc3232;
+$green: #6dc22e;
+
+// Header buttons gradient (only there)
+$windows-blue-dark: #01589b;
+$windows-blue: #0562b5;
+$windows-blue-light: #2b82de;
 
 $color-text: $grey-800;
 $color-heading: $primary;
@@ -46,9 +44,9 @@ $color-link-hover: $primary;
 
 
 // Fonts
-$font-heading: 'Arial', sans-serif;
-$font-text: 'Arial', sans-serif;
-$font-alt: 'Arial', sans-serif; // extra font for selected elements
+$font-heading: 'Montserrat', 'Arial', sans-serif;
+$font-text: 'Inter', 'Arial', sans-serif;
+$font-alt: 'Inter', 'Arial', sans-serif; // extra font for selected elements
 
 
 // Typography
@@ -90,8 +88,6 @@ $container-gutter-x-values: (
 				xl: 100px,
 );
 
-$container-fluid-max-width: 1920px;
-
 :root {
 	--container-width: 100%;
 
@@ -102,6 +98,16 @@ $container-fluid-max-width: 1920px;
 		}
 	}
 
-	--header-height: #{rem(100)}; // fixed header
-	--header-scrolled-height: #{rem(70)};
+	// Header heights (_header.scss)
+	--header-top-height: #{rem(70)};
+	--header-top-scrolled-height: #{rem(60)};
+	--header-nav-height: 0px;
+	--header-height: calc(var(--header-top-height) + var(--header-nav-height));
+	--header-scrolled-height: calc(var(--header-top-scrolled-height) + var(--header-nav-height));
+
+	@media (min-width: map.get($grid-breakpoints, lg)) {
+		--header-top-height: #{rem(100)};
+		--header-top-scrolled-height: 0px;
+		--header-nav-height: #{rem(52)};
+	}
 }

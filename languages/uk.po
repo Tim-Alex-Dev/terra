@@ -1,0 +1,180 @@
+# Copyright (C) 2026 Tim Alex
+# This file is distributed under the same license as the terra theme.
+msgid ""
+msgstr ""
+"Project-Id-Version: terra 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/terra\n"
+"Last-Translator: Tim Alex\n"
+"Language-Team: Ukrainian\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-10-18T12:38:02+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: terra\n"
+
+#. Theme Name of the theme
+#: style.css
+msgid "terra"
+msgstr ""
+
+#. Description of the theme
+#: style.css
+msgid "Website for the Ukrainian locale of the German original website https://www.wortmann.de/ (modern computers, laptops, monitors etc.). The goal is to replicate all fonts, colors, styles, menu structure, logos, icons and buttons of the original home page in this project, then use those styles to build a few more pages such as About us. A full visual copy only: all links point to the original website. Work starts with the home page."
+msgstr ""
+
+#. Author of the theme
+#: style.css
+msgid "Tim Alex"
+msgstr ""
+
+#. Author URI of the theme
+#: style.css
+msgid "https://www.linkedin.com/in/tymofii-popovych-4b02151b6/"
+msgstr ""
+
+#: 404.php:8
+msgid "Page not found."
+msgstr "Сторінку не знайдено."
+
+#: 404.php:12
+msgid "Sorry, the page you were looking for doesn't exist or has been moved."
+msgstr "На жаль, сторінка, яку ви шукаєте, не існує або була переміщена."
+
+#: 404.php:16
+msgid "Back to homepage"
+msgstr "Повернутися на головну"
+
+#: footer.php:16
+msgid "Footer menu"
+msgstr "Нижнє меню"
+
+#: footer.php:36
+msgid "Legal links"
+msgstr "Юридична інформація"
+
+#: footer.php:53
+msgid "Scroll to top"
+msgstr "Прокрутити вгору"
+
+#: header.php:18
+msgid "Skip to content"
+msgstr "Перейти до вмісту"
+
+#: header.php:31
+msgid "Toggle navigation"
+msgstr "Відкрити або закрити меню"
+
+#: header.php:35
+msgid "Main menu"
+msgstr "Головне меню"
+
+#: inc/admin-colors.php:7
+msgid "Theme"
+msgstr "Тема сайту"
+
+#: inc/after-theme-setup.php:19
+msgid "Main Nav"
+msgstr "Головне меню"
+
+#: inc/after-theme-setup.php:20
+msgid "Footer Nav (columns)"
+msgstr "Меню футера (колонки)"
+
+#: inc/after-theme-setup.php:21
+msgid "Footer Bottom Nav"
+msgstr "Нижнє меню футера"
+
+#. translators: %s: post date.
+#: inc/help-func.php:23
+#, php-format
+msgctxt "post date"
+msgid "Posted on %s"
+msgstr "Опубліковано %s"
+
+#. translators: %s: post author.
+#: inc/help-func.php:33
+#, php-format
+msgctxt "post author"
+msgid "by %s"
+msgstr "автор: %s"
+
+#: inc/help-func.php:42
+msgid ", "
+msgstr ", "
+
+#: inc/help-func.php:44
+#, php-format
+msgid "Posted in %1$s"
+msgstr "Рубрики: %1$s"
+
+#: inc/help-func.php:52
+#, php-format
+msgid "Tagged %1$s"
+msgstr "Мітки: %1$s"
+
+#: inc/svg-support.php:127
+msgid "Sorry, this SVG file is not valid or not safe, so it was rejected."
+msgstr "Цей SVG-файл недійсний або небезпечний, тому його відхилено."
+
+#. translators: %s: search query.
+#: search.php:11
+#, php-format
+msgid "Search Results for: %s"
+msgstr "Результати пошуку: %s"
+
+#: searchform.php:7
+#: searchform.php:8
+msgid "Search"
+msgstr "Пошук"
+
+#: single.php:28
+msgid "Pages:"
+msgstr "Сторінки:"
+
+#: single.php:33
+msgid "Previous:"
+msgstr "Попередній запис:"
+
+#: single.php:34
+msgid "Next:"
+msgstr "Наступний запис:"
+
+#: template-parts/breadcrumbs.php:5
+msgid "Breadcrumbs"
+msgstr "Навігаційний ланцюжок"
+
+#: template-parts/builder/contacts.php:19
+msgid "Map"
+msgstr "Карта"
+
+#: template-parts/builder/simple_content.php:38
+msgid "Play video"
+msgstr "Відтворити відео"
+
+#: template-parts/content-none.php:8
+msgid "Nothing Found"
+msgstr "Нічого не знайдено"
+
+#: template-parts/pagination.php:9
+msgid "Pagination"
+msgstr "Посторінкова навігація"
+
+#: template-parts/pagination.php:19
+msgid "&larr; Prev"
+msgstr "&larr; Назад"
+
+#: template-parts/pagination.php:20
+msgid "Next &rarr;"
+msgstr "Далі &rarr;"
+
+#: template-parts/post-card.php:36
+msgid "Read more"
+msgstr "Детальніше"
+
+#: template-parts/post-related.php:15
+msgid "Our latest news"
+msgstr "Наші останні новини"

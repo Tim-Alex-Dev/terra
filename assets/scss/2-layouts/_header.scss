@@ -1,10 +1,9 @@
-// The header is fixed, so the page content starts below it: full header height, also when the header shrinks on scroll
-// (no content jump). A project's hero that should slide under the header removes it in its module styles:
-// .site-content:has(> .m-hero:first-child) { padding-top: 0; }
+// Fixed header: the content starts below its full height (no jump when it shrinks on scroll)
 .site-content {
 	padding-top: var(--header-height);
 }
 
+// Two levels: top bar + menu bar (_navigation.scss); heights: --header-* in _!variables.scss
 .site-header {
 	width: 100%;
 	height: var(--header-height);
@@ -15,22 +14,36 @@
 	z-index: 100;
 	transition: background-color $time, height $time;
 
+	@include max(lg) {
+		border-bottom: 1px solid $grey-100;
+	}
+
 	.is-scrolled & {
 		height: var(--header-scrolled-height);
 		box-shadow: 0 10px 10px rgba($black, 0.1);
 	}
 
-	> .container {
-		height: 100%;
-		display: flex;
-		align-items: center;
-		justify-content: flex-end;
-		gap: rem(30);
+	&__top {
+		height: var(--header-top-height);
+		overflow: hidden;
+		position: relative;
+		z-index: 3;
+		transition: height $time;
+
+		.is-scrolled & {
+			height: var(--header-top-scrolled-height);
+		}
+
+		> .container {
+			height: 100%;
+			display: flex;
+			align-items: center;
+			gap: rem(20);
+		}
 	}
 
 	.site-logo {
 		margin-right: auto;
-		z-index: 3;
 	}
 }
 
@@ -42,13 +55,72 @@
 
 	img {
 		width: auto;
-		height: rem(50);
+		height: rem(46);
+
+		@include min(lg) {
+			height: rem(84);
+		}
 	}
 }
 
-// Mobile menu toggle (hidden from lg up, where the menu is always visible)
+// Header buttons: --top = top bar (desktop), --menu = mobile panel
+.header-buttons {
+	display: flex;
+	gap: rem(8);
+
+	&--top {
+		@include max(lg) {
+			display: none;
+		}
+	}
+
+	&--menu {
+		flex-direction: column;
+		align-items: flex-start;
+		padding: rem(30) calc(var(--container-gutter-x) / 2) 0;
+
+		@include min(lg) {
+			display: none;
+		}
+	}
+
+	&__item {
+		height: rem(32);
+		display: inline-flex;
+		align-items: center;
+		padding: rem(0 14 0 10);
+		color: $white;
+		font-size: rem(13);
+		line-height: 1;
+		white-space: nowrap;
+		text-decoration: none;
+		background-image: linear-gradient(90deg, $windows-blue-dark, $windows-blue 50%, $windows-blue-light);
+		border-radius: rem(2);
+		transition: box-shadow $time;
+
+		@include hover {
+			color: $white;
+			box-shadow: inset 0 0 0 rem(40) rgba($black, 0.15);
+		}
+
+		svg {
+			flex-shrink: 0;
+			width: rem(14);
+			height: rem(14);
+			margin-right: rem(10);
+			fill: $white;
+		}
+
+		svg + span {
+			padding-left: rem(10);
+			border-left: 1px solid $windows-blue-light;
+			line-height: rem(18);
+		}
+	}
+}
+
+// Mobile menu toggle
 .icon-burger {
-	// it is a <button>: reset the browser styles
 	padding: 0;
 	border: 0;
 	background: none;

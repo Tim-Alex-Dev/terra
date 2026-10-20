@@ -44,7 +44,7 @@ Rules for working on the theme (also read by Claude Code) are in `.claude/CLAUDE
 | Web server | Apache 2.4.66 with the default WordPress `.htaccess` |
 | Node.js / npm | Node 24.21.0 (`.nvmrc`, minimum 20.19) / npm 11.19.0 |
 | Required plugins | Advanced Custom Fields Pro 6.8.10, Advanced Custom Fields: Extended 0.9.2.7 (the theme calls ACF directly, no fallbacks), Yoast SEO 28.6 (breadcrumbs; separator `-`, author archives off), Contact Form 7 6.2.2, WP Mail SMTP 4.10.2 (mail server settings per environment) |
-| Optional features | Added: Contact Form 7 add-on, WP Mail SMTP plugin. Removed: AJAX (`inc/ajax.php`, `components/ajax.js`). Not used: WPML, WooCommerce |
+| Optional features | Added: Contact Form 7 add-on (field grid in form templates: `<div class="form-grid">` with `<label>` per field, `form-grid__full` = whole row), WP Mail SMTP plugin. Removed: AJAX (`inc/ajax.php`, `components/ajax.js`). Not used: WPML, WooCommerce |
 | `wp-config.php` (local) | `WP_DEBUG`, `WP_DEBUG_LOG`, `WP_DEBUG_DISPLAY` = true, `WP_ENVIRONMENT_TYPE` = `local`, `DISALLOW_FILE_EDIT` = true |
 <!-- project-setup:end -->
 
@@ -106,9 +106,9 @@ PHP prefix for functions, hooks and filters: `it_` (constants `IT_*`). It is the
 | File | Purpose |
 | --- | --- |
 | `functions.php` | Constants (`IT_DIR`, `IT_URL`, `IT_CSS`, `IT_JS`, `IT_IMG` = paths/URLs of the theme and `dist/`) and the `inc/` files |
-| `header.php` | `<head>`, skip link, site header (logo, main menu, burger button), opens `<main class="site-content">` |
-| `footer.php` | Closes `<main>`, site footer (logo, footer menu, socials, copyright), SVG sprite, to-top button, `wp_footer()` |
-| `page.php` | Pages: breadcrumbs + Page Builder modules, or title + content if the page has no modules |
+| `header.php` | `<head>`, skip link, two-level site header (top bar: logo, header buttons, burger; menu bar: main menu, 3 levels), opens `<main class="site-content">` |
+| `footer.php` | Closes `<main>`, site footer like the original: link columns (menu "Footer Nav (columns)"; 2 per row on phones, 3 from md, one row from lg), bottom bar (footer logo, menu "Footer Bottom Nav", copyright), SVG sprite, to-top button, `wp_footer()` |
+| `page.php` | Pages (no breadcrumbs): Page Builder modules, or title + content if the page has no modules |
 | `single.php` | Single posts (and CPTs without own template): image, title, meta, content, prev/next, related posts |
 | `index.php` | Blog and archives: title, post cards grid, pagination |
 | `search.php` | Search results: search form, post cards, pagination |
@@ -116,6 +116,7 @@ PHP prefix for functions, hooks and filters: `it_` (constants `IT_*`). It is the
 | `searchform.php` | Search form (`get_search_form()`) |
 | `style.css` | Theme header only: name, author, description, version, text domain. No CSS (styles are in `dist/css/`) |
 | `screenshot.png` | Theme preview in wp-admin |
+| `favicon.ico` | Favicon (64-16 px), linked and served at `/favicon.ico` by `inc/favicon.php` (a Site Icon set in WP admin wins) |
 | `starter.config.json` | Project settings (above) |
 | `gulpfile.js` | Build: SCSS -> LightningCSS, JS -> Webpack/Babel, images and fonts copied to `dist/` |
 | `package.json` | Dependencies, npm scripts, `browserslist` (target browsers for CSS and JS) |
@@ -132,15 +133,18 @@ never edit, add or delete files there by hand. To change fields: change them in 
 
 | File | Purpose |
 | --- | --- |
-| `after-theme-setup.php` | Theme supports (title tag, thumbnails, HTML5), menu locations `main` and `footer`, translations folder, content width, body class `{post type}-{slug}`, archive titles without prefix, excerpt 20 words |
+| `after-theme-setup.php` | Theme supports (title tag, thumbnails, HTML5), image size `admin-preview` (300 x 300 max, ACF image field previews in wp-admin), menu locations `main`, `footer` (columns) and `footer-bottom`, translations folder, content width, body class `{post type}-{slug}`, archive titles without prefix, excerpt 20 words |
+| `admin-colors.php` | wp-admin color scheme "Theme" in the project colors (`admin-colors.scss`), used for every user |
 | `acf.php` | Options page **Theme Settings**, automatic Page Builder layout previews, unused ACF Extended modules off |
 | `custom-post-type.php` | Commented example: custom post type + taxonomy |
 | `disables.php` + `disables/` | WordPress features the theme does not use, one file each (see below) |
 | `editor.php` | Classic editor (TinyMCE, also ACF WYSIWYG): editor styles, "Formats" menu (titles, text sizes, buttons, lists), text colors = palette |
+| `favicon.php` | Favicon link in `<head>` (site, admin, login) and `/favicon.ico` redirect to the theme's `favicon.ico` |
 | `help-func.php` | Helpers (see below) |
 | `login.php` | Login screen: logo links to the site, own styles (`login.scss`) |
+| `menu.php` | Main menu: parents without a link (`#`) are printed as `<button class="menu-toggle">` (opened by `navigation.js`). Footer menu: top-level items without a link are the column headings (`<h2 class="footer-links__title">`) |
 | `scripts-styles.php` | Enqueues `main.css`, `main.js` (+ `itSettings`: `ajaxUrl`, `nonce`), admin styles/script. Version = file time (cache busting) |
-| `svg-support.php` | SVG uploads for administrators only; every SVG is sanitized (scripts, events, external links removed) |
+| `svg-support.php` | SVG uploads for administrators only; every SVG is sanitized (scripts, events, external links removed); image sizes of an SVG = its own size scaled into each size box |
 
 `inc/disables/` (comment out a `require` in `disables.php` to keep a feature):
 
@@ -176,13 +180,14 @@ Helpers in `help-func.php`:
 | File | Purpose |
 | --- | --- |
 | `builder.php` | Loops the `builder` field, loads `builder/{layout}.php` per module (layouts without a template are skipped) |
-| `builder/{layout}.php` | One template per Page Builder module (starter: `faq.php`) |
+| `builder/{layout}.php` | One template per Page Builder module: `hero.php` (slider + link blocks, normal container (max 1400px) without side padding, 40px vertical padding, thin even gaps; from md (640px) header + hero = 100svh: 2 tile rows of 150px, the banner fills the rest of the height with grey arrow panels beside it), `simple_content.php` (headings + content blocks: text, media (image, video file with banner = lightbox, video link = lazy youtube-nocookie iframe) or text + media in 2 columns, media left/right; background white/grey), `partnership.php` (headings + 2 endless logo rows, odd logos top, even bottom, name on hover; background white/grey), `services.php` (headings + text and a Contact Form 7 form card; from lg text fluid + form 515px but at most half of the row (equal columns on narrower screens; lg-xl: all form fields full width), below lg stacked; background white/grey), `contacts.php` (headings + company/address, hours, phones, e-mails (antispambot), links with icons in 2 blocks (address, phones, hours | e-mails, links; stacked on phones and next to the map from lg, side by side md-lg) and a lazy Google map (only `https://www.google.com/maps/embed` links), 5:7 columns from lg; background white/grey), `faq.php` |
 | `builder/components/headings.php` | Module headings: uptitle, title, subtitle |
 | `post-card.php` | Post card (image, meta, title, excerpt, "Read more"). A post type can get its own: `post-card-{post_type}.php` |
 | `post-related.php` | 3 latest posts of the current post type (single) |
 | `pagination.php` | Pagination (`<nav>`) |
-| `breadcrumbs.php` | Yoast breadcrumbs (`<nav>`, not on the front page) |
+| `breadcrumbs.php` | Yoast breadcrumbs (`<nav>`, not on the front page). Not used in this project (removed from `page.php` and `single.php`) |
 | `content-none.php` | "Nothing found" |
+| `header-buttons.php` | Header buttons from Theme Settings (top bar on desktop, under the menu on mobile) |
 | `socials.php` | Social links from Theme Settings |
 | `svg.php` | SVG icon sprite (printed in the footer) |
 
@@ -255,14 +260,16 @@ $module_headings = $module_title || $module_uptitle || $module_subtitle;
 * Extra elements next to the headings (slider arrows, a button): wrap headings + elements in `<div class="module-header">`.
 * **Headings component**: `<div class="module-headings alignment-{left|center|right}">` with `__uptitle`, `__title`,
   `__subtitle`. Title tag: the one chosen in the module, or (none chosen) **h1 in the first module of the page**, h2 in
-  the others, so a page built from modules always has its h1. The title looks like an h2 with any tag.
-* Shared module styles: `4-builder/_!module.scss` (`.module` spacing, `.module--padding`, `.module-headings`, `.module-header`).
+  the others, so a page built from modules always has its h1. The title looks like an h2 with any tag (Montserrat 900,
+  letter-spacing 0.02em). Width: 100% centered below md, 75% centered below lg, from lg max 50% of the container with the
+  chosen alignment.
+* Shared module styles: `4-builder/_!module.scss` (`.module` spacing: no margin, vertical padding 45/50px, 70px from lg; Hero overrides it with none, module background `bg-white` / `bg-grey` from the `color_theme` field, `.module-headings`, `.module-header`).
 * Module script (if needed): `assets/js/modules/{name}.js`, loaded for the selector `.m-{name}`.
 * Above-the-fold images (e.g. a hero) must not be lazy-loaded: `[ 'loading' => 'eager', 'fetchpriority' => 'high' ]`.
 
 ## Theme Settings (ACF options)
 
-wp-admin -> **Theme Settings**: `header_logo`, `footer_logo` (falls back to `header_logo`), `enable_to_top`
+wp-admin -> **Theme Settings**: `header_logo`, `header_buttons` (repeater: `link`, `icon` windows/none), `footer_logo` (falls back to `header_logo`), `enable_to_top`
 (to-top button), `socials` (repeater: `name` = network, `url`).
 
 ## SCSS
@@ -273,7 +280,8 @@ Entry files in `assets/scss/` (each -> `dist/css/{name}.css`):
 | --- | --- |
 | `main.scss` | Front-end, all layers below |
 | `editor-styles.scss` | Classic editor (settings + generic layers only) |
-| `admin-styles.scss` | wp-admin (system colors only, no theme settings) |
+| `admin-styles.scss` | wp-admin (system colors only, no theme settings): ACF / ACFE look (buttons and ACF's own hard-coded blue on the editing screens follow the admin scheme color `--wp-admin-theme-color`; ACF's Field Groups pages keep their blue), empty ACFE columns (all fields hidden) take no space |
+| `admin-colors.scss` | wp-admin color scheme in the project colors: WordPress core's scheme module (`wp-admin/css/colors/_admin`) configured with $grey-950 menu, $primary highlight/buttons/links (HEX values, a configured @use cannot load the settings) |
 | `login.scss` | Login screen |
 | `plyr.scss` | Video player, loaded by the lightbox only when a video opens |
 
@@ -298,7 +306,7 @@ Conventions (details: `.claude/rules/scss.md`):
 * BEM. Nested elements chain the name: `.m-faq__list` > `.m-faq__list-item` > `.m-faq__list-item-title`. An element
   with its own children starts a short base (`.content__title`), styled only inside its block.
 * Hover only through `@include hover` (no sticky hover on touch screens). Icon sizes only in SCSS.
-* Buttons: `btn` + type (`btn-outline`) + color (`btn-primary|secondary|white|black`) + size (`btn-sm|lg`).
+* Buttons: `btn` + type (`btn-outline`) + color (`btn-primary|white|black`; one brand color, no secondary) + size (`btn-sm|lg`).
 * Grid: `.grid .grid-{1-6} .grid-{md|lg|xl}-{1-6}`, gap `--grid-gap`. Other layouts: own CSS grid in the module.
 * The header is fixed: `main.site-content` has `padding-top: var(--header-height)`. A hero under the header:
   `.site-content:has(> .m-hero:first-child) { padding-top: 0; }` in its module styles.
@@ -314,7 +322,7 @@ assets/js/
   modules/         bigger scripts, separate files, loaded only on pages that need them
   functions/       helpers to import
   vendors/         libraries not on npm (jquery.nice-select)
-  copy/            files copied to dist/js/ as they are (admin.js, plyr.min.js)
+  copy/            files copied to dist/js/ as they are (admin.js = wp-admin: automatic H1/H2 marker on the Page Builder title tag; plyr.min.js)
 ```
 
 | File | Purpose |
@@ -322,14 +330,16 @@ assets/js/
 | `components/_custom.js` | Small site-wide snippets (Nice Select on all `<select>`) |
 | `components/adminbar.js` | Front-end admin bar hidden above the page, opens on a click on the site name |
 | `components/header-scrolled.js` | `body.is-scrolled` after 70px |
-| `components/navigation.js` | Mobile menu and sub-menus (`body.is-menu-open`, ARIA states) |
+| `components/navigation.js` | Mobile menu (`body.is-menu-open`), main menu toggles (desktop: level 1 hover/focus/click, deeper levels accordion; mobile: accordion), `aria-expanded` |
 | `components/to-top.js` | To-top button |
 | `components/accordion.js` | `.js-accordion > .js-accordion-item > button.js-accordion-title + .js-accordion-content` |
 | `components/tabs.js` | `.js-tabs`, `button.js-tab-title[data-item="id"]` + `.js-tab-content#id` |
 | `components/toggle.js` | `.js-toggle[data-item="id"]` + `.js-toggle-content#id` |
 | `components/modal.js` | `a.js-modal-open[data-modal="id"]` + `.modal#id`, closes with button, overlay, Escape |
 | `modules/slider.js` | Swiper for `.swiper` (only the used Swiper modules) |
-| `modules/lightbox.js` | GLightbox for `[data-lightbox]` (images, YouTube/Vimeo, video files with Plyr) |
+| `modules/lightbox.js` | GLightbox for `[data-lightbox]` (images, YouTube/Vimeo, video files with Plyr; same value = one gallery, empty = single item without prev / next) |
+| `modules/hero.js` | Hero module slider (`.m-hero`): Swiper with arrows, dots, autoplay 5s (off with reduced motion), loop when more than one slide |
+| `modules/partnership.js` | Partnership module logo rows (`.m-partnership`): 2 Swipers in continuous linear movement (bottom row mirrored = other direction), no autoplay with reduced motion |
 | `functions/load-modules.js` | Loads modules when the page contains their selector: after load when idle, or on first interaction |
 | `functions/breakpoint.js` | `minWidth('lg')` |
 | `functions/throttle.js` | `throttle(fn, delay)` |
@@ -358,8 +368,10 @@ Details: `.claude/rules/php.md`.
   compress before adding (Claude Code: `/optimize-images`): WebP quality 100 (90 above 1 MB), max 2560px wide.
 * Media Library images: `wp_get_attachment_image( $id, 'full', false, [ 'class' => 'img-cover' ] )`. Theme images: `IT_IMG . 'name.svg'`.
 * Lazy-loading: native WordPress `loading="lazy"`, no script. Logo: `'loading' => 'eager'`; hero / main image: `+ 'fetchpriority' => 'high'`.
-* Icons: sprite `template-parts/svg.php` (search, arrows, angles, close, social icons). New icon = new `<symbol>`.
+* Icons: sprite `template-parts/svg.php` (search, arrows, angles, play, location, clock, phone, email, globe, close, social icons). New icon = new `<symbol>`.
 * Fonts: `.woff2` / `.woff` in `assets/fonts/`, `@font-face` in `0-settings/_fonts.scss` (`font-display: swap`).
+  This project: **Inter** 300 / 400 / 700 (text; 300 = quote author, `$font-text`, `$font-alt`) + **Montserrat** 700 / 900 (headings and module titles, `$font-heading`),
+  latin + cyrillic subsets (each loads only for its characters, Ukrainian incl. ґ), from Fontsource 5.3.0, SIL Open Font License 1.1. Fallback: Arial.
 
 ## Optional features and add-ons
 

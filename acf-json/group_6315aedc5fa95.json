@@ -26,7 +26,7 @@
             "name": "header_logo",
             "aria-label": "",
             "type": "image",
-            "instructions": "Recommended format: SVG.",
+            "instructions": "SVG (recommended) or WebP. Shown about 184 × 84 px (2.2:1): WebP at least 370 × 170 px.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -46,7 +46,72 @@
             "max_size": "",
             "mime_types": "",
             "allow_in_bindings": 1,
-            "preview_size": "medium"
+            "preview_size": "admin-preview"
+        },
+        {
+            "key": "field_013be5bab8d6b",
+            "label": "Header Buttons",
+            "name": "header_buttons",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Blue buttons next to the logo (desktop) and under the menu (mobile). Button text = link text.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "min": 0,
+            "max": 4,
+            "button_label": "Add Button",
+            "rows_per_page": 20,
+            "collapsed": "",
+            "acfe_repeater_stylised_button": 0,
+            "sub_fields": [
+                {
+                    "key": "field_9bb8d677e7ec4",
+                    "label": "Link",
+                    "name": "link",
+                    "aria-label": "",
+                    "type": "link",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "70",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "parent_repeater": "field_013be5bab8d6b"
+                },
+                {
+                    "key": "field_cb2987bf711db",
+                    "label": "Icon",
+                    "name": "icon",
+                    "aria-label": "",
+                    "type": "button_group",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "30",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "windows": "Windows",
+                        "none": "None"
+                    },
+                    "default_value": "windows",
+                    "return_format": "value",
+                    "layout": "horizontal",
+                    "parent_repeater": "field_013be5bab8d6b",
+                    "allow_null": 0
+                }
+            ]
         },
         {
             "key": "field_6316183d7afe1",
@@ -72,7 +137,7 @@
             "name": "footer_logo",
             "aria-label": "",
             "type": "image",
-            "instructions": "Recommended format: SVG.",
+            "instructions": "SVG (recommended) or WebP. Shown 28 px high (about 190 × 28 px): WebP at least 380 × 56 px.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -92,7 +157,7 @@
             "max_size": "",
             "mime_types": "",
             "allow_in_bindings": 1,
-            "preview_size": "medium"
+            "preview_size": "admin-preview"
         },
         {
             "key": "field_6316184b7afe2",
@@ -237,5 +302,5 @@
             "json"
         ]
     },
-    "modified": 1791424237
+    "modified": 1792316388
 }

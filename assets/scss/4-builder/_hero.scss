@@ -1,0 +1,202 @@
+@use "sass:map";
+
+// Hero: from md header + hero = 100svh (2 tile rows of 150px, the banner fills the rest, grey arrow panels beside it)
+.m-hero {
+	--hero-gap: #{rem(4)};
+	--hero-arrow: clamp(#{rem(36)}, 3vw, #{rem(42)});
+	--hero-arrow-zone: #{rem(80)};
+	--hero-dot: clamp(#{rem(8)}, 0.65vw, #{rem(9)});
+	--hero-padding: #{rem(40)};
+	padding: var(--hero-padding) 0;
+
+	@include min(md) {
+		--hero-tile: #{rem(150)};
+		--hero-tile-max: (min(100vw, #{map.get($container-max-widths, xl)}) - 3 * var(--hero-gap)) / 4;
+		--hero-slider-max: min(100vw, #{map.get($container-max-widths, xl)}) * 699 / 1140;
+		// screen height under the header (min 560px), max = padding + full-size banner + 2 square tile rows
+		--hero-height: min(
+			max(100svh - var(--header-height), #{rem(560)}),
+			2 * var(--hero-padding) + var(--hero-slider-max) + 2 * var(--hero-tile-max) + 2 * var(--hero-gap)
+		);
+		--hero-slider-height: min(
+			var(--hero-height) - 2 * var(--hero-padding) - 2 * var(--hero-tile) - 2 * var(--hero-gap),
+			var(--hero-slider-max)
+		);
+		height: var(--hero-height);
+	}
+
+	> .container {
+		padding-inline: 0;
+
+		@include min(md) {
+			height: 100%;
+		}
+	}
+
+	&__inner {
+		display: flex;
+		flex-direction: column;
+		gap: var(--hero-gap);
+
+		@include min(md) {
+			height: 100%;
+		}
+	}
+
+	// Slider
+	&__slider {
+		--swiper-pagination-bottom: 0px;
+		--swiper-navigation-sides-offset: 0px;
+		width: 100%;
+		aspect-ratio: 1140 / 699;
+		background-color: $grey-50;
+
+		@include min(md) {
+			--swiper-pagination-bottom: calc(var(--hero-dot) * 2);
+			flex: 0 0 auto;
+			aspect-ratio: auto;
+			height: var(--hero-slider-height);
+		}
+
+		// arrows = full-height side zones (from md the whole grey panel); angle icons are 192 x 512
+		.swiper-button-prev,
+		.swiper-button-next {
+			width: max(var(--hero-arrow-zone), (100% - var(--hero-slider-height, 0px) * 1140 / 699) / 2);
+			height: 100%;
+			margin-top: 0;
+			padding: 0;
+			border: 0;
+			border-radius: 0;
+			background-color: rgba($white, 0.1);
+			cursor: pointer;
+			top: 0;
+			transition: background-color $time * 0.6;
+
+			@include max(md) {
+				display: none;
+			}
+
+			@include hover {
+				background-color: rgba($white, 0.35);
+
+				svg {
+					fill: $primary;
+				}
+			}
+
+			&:focus-visible {
+				background-color: rgba($white, 0.35);
+			}
+
+			&:active svg {
+				scale: 0.9;
+			}
+
+			svg {
+				width: calc(var(--hero-arrow) * 0.375);
+				height: var(--hero-arrow);
+				fill: $primary;
+				transition: translate $time * 0.6 cubic-bezier(0.34, 1.56, 0.64, 1), scale $time * 0.3;
+			}
+		}
+
+		.swiper-button-prev {
+			@include hover {
+				svg {
+					translate: rem(-4) 0;
+				}
+			}
+
+			&:focus-visible svg {
+				translate: rem(-4) 0;
+			}
+		}
+
+		.swiper-button-next {
+			@include hover {
+				svg {
+					translate: rem(4) 0;
+				}
+			}
+
+			&:focus-visible svg {
+				translate: rem(4) 0;
+			}
+		}
+
+		.swiper-pagination-bullet {
+			width: calc(var(--hero-dot) * 2.6);
+			height: calc(var(--hero-dot) * 2.6);
+
+			&::after {
+				width: var(--hero-dot);
+				height: var(--hero-dot);
+				top: calc(50% - var(--hero-dot) / 2);
+				left: calc(50% - var(--hero-dot) / 2);
+				background-color: $white;
+				border: 1px solid $grey-450;
+			}
+
+			&-active::after {
+				background-color: $primary;
+				border-color: $primary;
+				transform: none;
+			}
+		}
+	}
+
+	&__slider-link {
+		display: block;
+		position: absolute;
+		inset: 0;
+	}
+
+	&__slider-image {
+		position: absolute;
+		inset: 0;
+	}
+
+	// Blocks
+	&__blocks {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: var(--hero-gap);
+
+		@include min(md) {
+			flex: 1 1 auto;
+			min-height: 0;
+			grid-template-columns: repeat(4, 1fr);
+			grid-auto-rows: 1fr;
+		}
+	}
+
+	&__blocks-item {
+		aspect-ratio: 284 / 150;
+		display: block;
+		background-color: $grey-50;
+		position: relative;
+		overflow: hidden;
+		text-decoration: none;
+
+		@include min(md) {
+			aspect-ratio: auto;
+		}
+
+		&--wide {
+			grid-column: span 2;
+			aspect-ratio: auto;
+		}
+
+		.item__image {
+			position: absolute;
+			inset: 0;
+			transition: transform $time;
+		}
+
+		@include hover {
+			.item__image {
+				transform: scale(1.05);
+			}
+		}
+	}
+}

@@ -79,21 +79,9 @@ function it_tiny_mce_before_init_formats( $settings ) {
 					'wrapper'  => false,
 				],
 				[
-					'title'    => 'Button (secondary)',
-					'selector' => 'a',
-					'classes'  => 'btn btn-secondary',
-					'wrapper'  => false,
-				],
-				[
 					'title'    => 'Button (outline primary)',
 					'selector' => 'a',
 					'classes'  => 'btn btn-outline btn-primary',
-					'wrapper'  => false,
-				],
-				[
-					'title'    => 'Button (outline secondary)',
-					'selector' => 'a',
-					'classes'  => 'btn btn-outline btn-secondary',
 					'wrapper'  => false,
 				],
 				[
@@ -142,11 +130,11 @@ function it_tiny_mce_before_init_formats( $settings ) {
 add_filter( 'tiny_mce_before_init', 'it_tiny_mce_before_init_colors' );
 function it_tiny_mce_before_init_colors( $init ) {
 	$custom_colors = [
-		'Black'     => '000000',
-		'White'     => 'ffffff',
-		'Grey'      => 'bdbdbd',
-		'Primary'   => 'df0000',
-		'Secondary' => '38bdf8',
+		'Black'   => '000000',
+		'White'   => 'ffffff',
+		'Text'    => '3c3c3c',
+		'Grey'    => 'cccccc',
+		'Primary' => '784d96',
 	];
 
 	$textcolor_map = [];

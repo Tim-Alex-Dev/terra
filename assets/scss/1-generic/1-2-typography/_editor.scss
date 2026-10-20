@@ -22,21 +22,58 @@
 	}
 }
 
+// Quote: <blockquote class="blockquote"><p>Quote</p><cite>Author<span>Position</span></cite></blockquote>
 .blockquote {
-	font-size: rem(20);
-	margin: rem(50 30);
+	position: relative;
+	margin: rem(40 0);
+	padding: rem(76 24 28);
+	border-radius: rem(12);
+	background-color: $primary;
+	color: $white;
+	font-size: rem(18);
+	text-align: left;
+
+	@include min(md) {
+		padding: rem(36 40 36 104);
+		font-size: rem(20);
+	}
+
+	&::before {
+		content: '';
+		position: absolute;
+		top: rem(28);
+		left: rem(24);
+		width: rem(36);
+		height: rem(36);
+		background-color: $white;
+		mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z'/%3E%3C/svg%3E") center / contain no-repeat;
+
+		@include min(md) {
+			top: rem(34);
+			left: rem(40);
+			width: rem(44);
+			height: rem(44);
+		}
+	}
 
 	p {
 		font-weight: 700;
+		line-height: 1.4;
+		margin: 0;
 	}
 
 	cite {
 		display: block;
-		color: inherit;
-		font-weight: 400;
-		font-style: normal;
 		margin-top: rem(16);
-		margin-bottom: 0;
+		color: inherit;
+		font-size: rem(16);
+		font-weight: 300;
+		font-style: normal;
+
+		span {
+			display: block;
+			font-size: rem(14);
+		}
 	}
 }
 

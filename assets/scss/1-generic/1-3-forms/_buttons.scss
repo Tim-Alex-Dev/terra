@@ -1,4 +1,4 @@
-// Buttons: btn + type (solid = no class, .btn-outline) + color (.btn-primary|secondary|white|black) + size (.btn-sm|lg)
+// Buttons: btn + type (solid = no class, .btn-outline) + color (.btn-primary|white|black) + size (.btn-sm|lg)
 // Color classes only set the --btn-* variables, type classes use them: every type works with every color
 
 .btn {
@@ -87,13 +87,6 @@
 
 .btn-primary {
 	--btn-color: #{$primary};
-	--btn-text: #{$white};
-	--btn-hover: #{$black};
-	--btn-hover-text: #{$white};
-}
-
-.btn-secondary {
-	--btn-color: #{$secondary};
 	--btn-text: #{$white};
 	--btn-hover: #{$black};
 	--btn-hover-text: #{$white};

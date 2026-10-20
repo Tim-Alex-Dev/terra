@@ -1,5 +1,5 @@
 <?php
-// Yoast breadcrumbs (not on the front page)
+// Yoast breadcrumbs (not used in this project)
 
 if ( function_exists( 'yoast_breadcrumb' ) && ! is_front_page() ) : ?>
 	<nav class="breadcrumbs" aria-label="<?php esc_attr_e( 'Breadcrumbs', 'terra' ); ?>">

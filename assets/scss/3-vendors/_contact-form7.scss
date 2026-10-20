@@ -16,6 +16,10 @@
 		@extend .btn;
 	}
 
+	.hidden-fields-container {
+		display: none;
+	}
+
 	form {
 		position: relative;
 
@@ -62,6 +66,32 @@
 
 	.form-group {
 		margin-bottom: rem(16);
+	}
+
+	// form template: <div class="form-grid"><label>... (__full = whole row)
+	.form-grid {
+		display: grid;
+		gap: rem(0 20);
+
+		@include min(md) {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		> label {
+			display: block;
+		}
+
+		.wpcf7-form-control-wrap {
+			margin-top: rem(6);
+		}
+
+		textarea {
+			height: rem(140);
+		}
+	}
+
+	.form-grid__full {
+		grid-column: 1 / -1;
 	}
 
 	label {

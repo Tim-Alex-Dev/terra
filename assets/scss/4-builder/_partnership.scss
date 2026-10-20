@@ -1,0 +1,98 @@
+// Partnership: the bottom row is mirrored (slides mirrored back), so it runs the other way
+.m-partnership {
+	--partnership-bg: #{$white};
+	--partnership-fade: #{rem(50)};
+
+	@include min(md) {
+		--partnership-fade: #{rem(150)};
+	}
+
+	&.bg-grey {
+		--partnership-bg: #{$grey-50};
+	}
+
+	&__swiper {
+		padding-block: rem(6); // room for the shadows
+
+		& + & {
+			margin-top: rem(18);
+		}
+
+		&::before,
+		&::after {
+			content: '';
+			position: absolute;
+			top: 0;
+			width: var(--partnership-fade);
+			height: 100%;
+			z-index: 10;
+			pointer-events: none;
+		}
+
+		&::before {
+			left: 0;
+			background: linear-gradient(90deg, var(--partnership-bg) 0%, rgba($white, 0) 100%);
+		}
+
+		&::after {
+			right: 0;
+			background: linear-gradient(270deg, var(--partnership-bg) 0%, rgba($white, 0) 100%);
+		}
+
+		&--bottom {
+			transform: scaleX(-1);
+
+			.swiper-slide {
+				transform: scaleX(-1);
+			}
+		}
+
+		.swiper-wrapper {
+			transition-timing-function: linear;
+		}
+	}
+
+	&__slide {
+		position: relative;
+		width: rem(200);
+		height: rem(100);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		background-color: $white;
+		border-radius: rem(12);
+		box-shadow: 0 2px 6px rgba($black, 0.06), 0 1px 2px rgba($black, 0.06);
+		padding: rem(14);
+
+		@include hover {
+			.m-partnership__slide-icon {
+				opacity: 0;
+			}
+
+			.m-partnership__slide-text {
+				opacity: 1;
+			}
+		}
+	}
+
+	&__slide-icon {
+		position: absolute;
+		inset: rem(14);
+		width: calc(100% - #{rem(28)});
+		height: calc(100% - #{rem(28)});
+		object-fit: contain;
+		transition: opacity $time;
+	}
+
+	&__slide-text {
+		position: relative;
+		z-index: 1;
+		font-weight: 700;
+		font-size: rem(16);
+		color: $primary;
+		letter-spacing: 0.01em;
+		opacity: 0;
+		transition: opacity $time;
+	}
+}

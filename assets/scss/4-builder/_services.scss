@@ -1,0 +1,54 @@
+// Services: text + form card
+.m-services {
+	--services-card: #{$grey-50};
+
+	&.bg-grey {
+		--services-card: #{$white};
+	}
+
+	&__inner {
+		--services-gap: #{rem(32)};
+		display: flex;
+		flex-direction: column;
+		gap: var(--services-gap);
+
+		// form 515px, but never more than half of the row
+		@include min(lg) {
+			--services-gap: #{rem(48)};
+			display: grid;
+			grid-template-columns: minmax(0, 1fr) min(#{rem(515)}, calc((100% - var(--services-gap)) / 2));
+			align-items: start;
+		}
+
+		@include min(xl) {
+			--services-gap: #{rem(64)};
+		}
+	}
+
+	&__form {
+		padding: rem(24 20);
+		border-radius: rem(12);
+		background-color: var(--services-card);
+
+		@include min(md) {
+			padding: rem(32);
+		}
+
+		@include min(lg) {
+			position: sticky;
+			top: calc(var(--header-scrolled-height) + #{rem(20)});
+		}
+	}
+
+	&__form-title {
+		margin-bottom: rem(20);
+	}
+
+	&__form .form-grid {
+		@include min(lg) {
+			@include max(xl) {
+				grid-template-columns: 1fr;
+			}
+		}
+	}
+}

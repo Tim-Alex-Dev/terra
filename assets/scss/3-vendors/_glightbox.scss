@@ -4,3 +4,13 @@
 [data-lightbox] {
 	cursor: pointer;
 }
+
+// no prev / next for a single item (GLightbox's .glightbox-clean .gnext would show them faded)
+.glightbox-container .gbtn.glightbox-button-hidden {
+	display: none;
+}
+
+// Plyr (lightbox videos): accent color
+.plyr {
+	--plyr-color-main: #{$primary};
+}

@@ -1,0 +1,22 @@
+// wp-admin color scheme from core's scheme module. HEX = the palette ($grey-950, $primary, $white): keep in sync
+@use "sass:color";
+@use "../../../../../wp-admin/css/colors/admin" with (
+	$scheme-name: "theme",
+	$base-color: #1e1e1e,
+	$highlight-color: #784d96,
+	$notification-color: #fff,
+	$link: #784d96,
+	$menu-highlight-text: #fff,
+	$menu-highlight-icon: #fff,
+	$menu-bubble-text: #1e1e1e,
+	$menu-submenu-focus-text: #fff,
+);
+
+$theme-color: #784d96;
+
+body.admin-color-theme {
+	--wp-admin-theme-color: #{$theme-color};
+	--wp-admin-theme-color--rgb: #{color.channel($theme-color, "red")}, #{color.channel($theme-color, "green")}, #{color.channel($theme-color, "blue")};
+	--wp-admin-theme-color-darker-10: #{color.adjust($theme-color, $lightness: -5%)};
+	--wp-admin-theme-color-darker-20: #{color.adjust($theme-color, $lightness: -10%)};
+}

@@ -3,8 +3,6 @@ get_header();
 the_post();
 ?>
 
-<?php get_template_part( 'template-parts/breadcrumbs' ); ?>
-
 <div class="container">
 	<?php if ( has_post_thumbnail() ) : ?>
 		<div class="post-thumbnail">

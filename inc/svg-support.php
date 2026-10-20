@@ -235,6 +235,17 @@ function it_svg_attachment_metadata( $metadata, $attachment_id ) {
 				$sizes[ $s ]['crop'] = get_option( "{$s}_crop" );
 			}
 
+			// The SVG's own size scaled into the size's box (0 = no limit, never upscaled), not the box itself:
+			// a box like "medium 768 x 0" would otherwise print width="768" height="1" in the <img>
+			if ( $metadata['width'] && $metadata['height'] ) {
+				[ $sizes[ $s ]['width'], $sizes[ $s ]['height'] ] = wp_constrain_dimensions(
+					$metadata['width'],
+					$metadata['height'],
+					(int) $sizes[ $s ]['width'],
+					(int) $sizes[ $s ]['height']
+				);
+			}
+
 			$sizes[ $s ]['file']      = $filename;
 			$sizes[ $s ]['mime-type'] = 'image/svg+xml';
 		}

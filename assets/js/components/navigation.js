@@ -8,7 +8,6 @@ jQuery(document).ready(function ($) {
 		$('body').toggleClass('is-menu-open');
 	});
 
-	// keep aria-expanded of the burger button in sync with the menu state (the menu can be closed by other scripts too)
 	const burger = document.querySelector('.icon-burger');
 	if (burger) {
 		const syncBurger = () => burger.setAttribute('aria-expanded', document.body.classList.contains('is-menu-open') ? 'true' : 'false');
@@ -20,36 +19,72 @@ jQuery(document).ready(function ($) {
 		$('body').removeClass('is-menu-open');
 	});
 
-	// autoclose mobile menu when increasing window width
-	function closeMobileMenu() {
-		$('.main-menu .sub-menu, .footer-links .sub-menu').css('display', '');
-		if (minWidth('lg')) {
-			if ($('body').hasClass('is-menu-open')) {
-				$('.icon-burger').trigger('click');
-			}
-		}
+	// Sub-menus: desktop level 1 opens on hover / focus (CSS) or click; deeper levels and mobile: accordion
+	function setOpen(item, open) {
+		item.toggleClass('active', open).children('.menu-toggle').attr('aria-expanded', open ? 'true' : 'false');
 	}
 
-	$(window).on('resize', function (e) {
-		closeMobileMenu();
+	function closeTopLevel() {
+		$('.main-menu > li.active').each(function () {
+			setOpen($(this), false);
+		});
+	}
+
+	$('.main-menu .menu-toggle').on('click', function (e) {
+		const item = $(this).parent(),
+			open = !item.hasClass('active'),
+			topLevelDesktop = minWidth('lg') && item.parent().hasClass('main-menu');
+
+		e.stopPropagation();
+
+		item.siblings('.active').each(function () {
+			setOpen($(this), false);
+			if (!topLevelDesktop) {
+				$(this).children('.sub-menu').stop().slideUp();
+			}
+		});
+
+		if (!topLevelDesktop) {
+			item.children('.sub-menu').stop()[open ? 'slideDown' : 'slideUp']();
+		}
+
+		setOpen(item, open);
 	});
 
+	// Desktop: another item, a click outside or Escape closes the clicked panel
+	$('.main-menu > li').on('mouseenter', function () {
+		if (minWidth('lg')) {
+			$(this).siblings('.active').each(function () {
+				setOpen($(this), false);
+			});
+		}
+	});
 
-	// Mobile sub-menus
-	$('.main-menu .menu-item-has-children, .footer-links .menu-item-has-children').on('click', function (e) {
-		const el = $(this),
-			topEl = $(this).parent();
-		if (!minWidth('lg')) {
-			e.stopPropagation();
-			if (el.hasClass('active')) {
-				el.removeClass('active');
-				el.find('> .sub-menu').slideUp();
-			} else {
-				topEl.find('> .sub-menu').slideUp();
-				topEl.find('.menu-item-has-children').removeClass('active');
-				el.addClass('active');
-				el.find('> .sub-menu').slideDown();
-			}
+	$(document).on('click', function (e) {
+		if (minWidth('lg') && !$(e.target).closest('.main-menu').length) {
+			closeTopLevel();
+		}
+	}).on('keydown', function (e) {
+		if ('Escape' === e.key && minWidth('lg')) {
+			closeTopLevel();
+		}
+	});
+
+	// Reset on a real breakpoint change only (mobile browsers fire resize on scroll)
+	let desktop = minWidth('lg');
+
+	$(window).on('resize', function () {
+		if (desktop === minWidth('lg')) {
+			return;
+		}
+		desktop = minWidth('lg');
+
+		$('.main-menu .sub-menu').css('display', '');
+		$('.main-menu li.active').each(function () {
+			setOpen($(this), false);
+		});
+		if (desktop && $('body').hasClass('is-menu-open')) {
+			$('.icon-burger').trigger('click');
 		}
 	});
 
