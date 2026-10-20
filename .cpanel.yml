@@ -2,5 +2,5 @@
 # cPanel Git deployment of master: deploy.sh copies the built theme into DEPLOYPATH (files not in the theme are removed there)
 deployment:
   tasks:
-    - export DEPLOYPATH=$HOME/public_html/wp-content/themes/terra/
-    - /bin/bash deploy.sh
+    - export DEPLOYPATH=/home2/timalexe/public_html/wp-content/themes/terra/
+    - /bin/cp -R . $DEPLOYPATH
