@@ -270,7 +270,8 @@ $module_headings = $module_title || $module_uptitle || $module_subtitle;
 ## Theme Settings (ACF options)
 
 wp-admin -> **Theme Settings**: `header_logo`, `header_buttons` (repeater: `link`, `icon` windows/none), `footer_logo` (falls back to `header_logo`), `enable_to_top`
-(to-top button), `socials` (repeater: `name` = network, `url`).
+(to-top button), `socials` (repeater: `name` = network, `url`), tab Leave Popup: `leave_title`, `leave_text`, `leave_address_label`,
+`leave_go_button`, `leave_stay_button` (texts of the leave-site popup; an empty field falls back to the theme's translatable string).
 
 ## SCSS
 
@@ -336,7 +337,7 @@ assets/js/
 | `components/tabs.js` | `.js-tabs`, `button.js-tab-title[data-item="id"]` + `.js-tab-content#id` |
 | `components/toggle.js` | `.js-toggle[data-item="id"]` + `.js-toggle-content#id` |
 | `components/modal.js` | `a.js-modal-open[data-modal="id"]` + `.modal#id`, closes with button, overlay, Escape; from other scripts: `$(document).trigger('modal:open', [id, opener])` |
-| `components/leave-notice.js` | Leave-site popup (`template-parts/leave-notice.php`, in the footer) before links to the original sites (`wortmann.de`, `wortmann.com.ua` + subdomains): Ukrainian notice, "Перейти на сайт" keeps the link's target. Not for Ctrl / Cmd / Shift / middle clicks |
+| `components/leave-notice.js` | Leave-site popup (`template-parts/leave-notice.php`, in the footer) before links to the original sites (`wortmann.de`, `wortmann.com.ua` + subdomains): texts from Theme Settings > Leave Popup, "Перейти на сайт" keeps the link's target. Not for Ctrl / Cmd / Shift / middle clicks |
 | `modules/slider.js` | Swiper for `.swiper` (only the used Swiper modules) |
 | `modules/lightbox.js` | GLightbox for `[data-lightbox]` (images, YouTube/Vimeo, video files with Plyr; same value = one gallery, empty = single item without prev / next) |
 | `modules/hero.js` | Hero module slider (`.m-hero`): Swiper with arrows, dots, autoplay 5s (off with reduced motion), loop when more than one slide |

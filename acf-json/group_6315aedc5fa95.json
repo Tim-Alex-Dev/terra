@@ -274,6 +274,125 @@
                     "parent_repeater": "field_6315aef9b8cb8"
                 }
             ]
+        },
+        {
+            "key": "field_9787d0e3ea7b3",
+            "label": "Leave Popup",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "left",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_e4a7622b6b827",
+            "label": "Popup Title",
+            "name": "leave_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Popup shown before a link opens the original WORTMANN websites (wortmann.de, wortmann.com.ua).",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Ви переходите на оригінальний сайт WORTMANN",
+            "placeholder": "",
+            "maxlength": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_f324e1ab53ef9",
+            "label": "Popup Text",
+            "name": "leave_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Посилання веде на офіційний сайт WORTMANN AG — виробника техніки TERRA. Усе гаразд: це безпечний перехід, а повернутися сюди можна будь-коли.",
+            "placeholder": "",
+            "rows": 3,
+            "new_lines": "",
+            "maxlength": "",
+            "acfe_textarea_code": 0
+        },
+        {
+            "key": "field_9e90a84d7c498",
+            "label": "Address Label",
+            "name": "leave_address_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Shown before the website address.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Адреса:",
+            "placeholder": "",
+            "maxlength": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_45bb6c2483aaf",
+            "label": "Go Button Text",
+            "name": "leave_go_button",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Перейти на сайт",
+            "placeholder": "",
+            "maxlength": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_63f8bc83d23c0",
+            "label": "Stay Button Text",
+            "name": "leave_stay_button",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Залишитися тут",
+            "placeholder": "",
+            "maxlength": "",
+            "prepend": "",
+            "append": ""
         }
     ],
     "location": [
@@ -302,5 +421,5 @@
             "json"
         ]
     },
-    "modified": 1792316388
+    "modified": 1792490604
 }
