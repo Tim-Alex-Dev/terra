@@ -21,17 +21,24 @@ jQuery(document).ready(function ($) {
 		}
 	};
 
-	$(document).on('click', '.js-modal-open', function (e) {
-		e.preventDefault();
-		const modal = $('#' + $(this).data('modal'));
+	const openModal = (id, from) => {
+		const modal = $('#' + id);
 		if (!modal.length) {
 			return;
 		}
-		opener = this;
+		opener = from;
 		$('body').removeClass('is-menu-open').addClass('overflow-hidden');
 		modal.addClass('is-open');
 		modal.find('.js-modal-close').first().trigger('focus');
+	};
+
+	$(document).on('click', '.js-modal-open', function (e) {
+		e.preventDefault();
+		openModal($(this).data('modal'), this);
 	});
+
+	// other scripts: $(document).trigger('modal:open', [id, openerElement])
+	$(document).on('modal:open', (e, id, from) => openModal(id, from));
 
 	$(document).on('click', '.js-modal-close, .modal__overlay', closeModal);
 

@@ -8,6 +8,7 @@ import './components/navigation';
 import './components/to-top';
 import './components/accordion';
 import './components/modal';
+import './components/leave-notice';
 import './components/tabs';
 import './components/toggle';
 import './components/cf7-events'; // Custom Contact Form 7 scripts

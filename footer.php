@@ -47,6 +47,8 @@ $enable_to_top = get_field( 'enable_to_top', 'option' );
 
 <?php get_template_part( 'template-parts/svg' ); ?>
 
+<?php get_template_part( 'template-parts/leave-notice' ); ?>
+
 <?php if ( $enable_to_top && ! is_404() ) : ?>
 	<a id="to-top" href="#top">
 		<svg><use xlink:href="#angle-up"></use></svg>

@@ -11,7 +11,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-18T12:38:02+00:00\n"
+"POT-Creation-Date: 2026-10-20T07:37:37+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: terra\n"
@@ -56,7 +56,7 @@ msgstr "Нижнє меню"
 msgid "Legal links"
 msgstr "Юридична інформація"
 
-#: footer.php:53
+#: footer.php:55
 msgid "Scroll to top"
 msgstr "Прокрутити вгору"
 
@@ -158,6 +158,30 @@ msgstr "Відтворити відео"
 #: template-parts/content-none.php:8
 msgid "Nothing Found"
 msgstr "Нічого не знайдено"
+
+#: template-parts/leave-notice.php:9
+msgid "Close"
+msgstr "Закрити"
+
+#: template-parts/leave-notice.php:14
+msgid "You are going to the original WORTMANN website"
+msgstr "Ви переходите на оригінальний сайт WORTMANN"
+
+#: template-parts/leave-notice.php:18
+msgid "This link opens the official website of WORTMANN AG, the manufacturer of TERRA. Everything is fine: it is a safe move, and you can come back here at any time."
+msgstr "Посилання веде на офіційний сайт WORTMANN AG — виробника техніки TERRA. Усе гаразд: це безпечний перехід, а повернутися сюди можна будь-коли."
+
+#: template-parts/leave-notice.php:22
+msgid "Address:"
+msgstr "Адреса:"
+
+#: template-parts/leave-notice.php:27
+msgid "Go to the website"
+msgstr "Перейти на сайт"
+
+#: template-parts/leave-notice.php:30
+msgid "Stay here"
+msgstr "Залишитися тут"
 
 #: template-parts/pagination.php:9
 msgid "Pagination"

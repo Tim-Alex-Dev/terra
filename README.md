@@ -294,7 +294,7 @@ Layers (`main.scss` includes them in this order, all files of a folder by glob):
 | `2-layouts` | `_grid` (`.container`, `.content-narrow`, `.grid`), `_header`, `_navigation`, `_footer` |
 | `3-vendors` | Swiper, GLightbox, Nice Select (+ plugin styles from add-ons) |
 | `4-builder` | `_!module` (shared) + one file per module |
-| `5-components` | accordion, tabs, toggle, modal, post card, pagination, breadcrumbs, search form, socials, to-top, image placeholder |
+| `5-components` | accordion, tabs, toggle, modal, leave notice, post card, pagination, breadcrumbs, search form, socials, to-top, image placeholder |
 | `6-templates` | page and template specific styles (`_page`, `_404`; per project `_single-{cpt}`, `_archive-{cpt}`...) |
 
 Conventions (details: `.claude/rules/scss.md`):
@@ -335,7 +335,8 @@ assets/js/
 | `components/accordion.js` | `.js-accordion > .js-accordion-item > button.js-accordion-title + .js-accordion-content` |
 | `components/tabs.js` | `.js-tabs`, `button.js-tab-title[data-item="id"]` + `.js-tab-content#id` |
 | `components/toggle.js` | `.js-toggle[data-item="id"]` + `.js-toggle-content#id` |
-| `components/modal.js` | `a.js-modal-open[data-modal="id"]` + `.modal#id`, closes with button, overlay, Escape |
+| `components/modal.js` | `a.js-modal-open[data-modal="id"]` + `.modal#id`, closes with button, overlay, Escape; from other scripts: `$(document).trigger('modal:open', [id, opener])` |
+| `components/leave-notice.js` | Leave-site popup (`template-parts/leave-notice.php`, in the footer) before links to the original sites (`wortmann.de`, `wortmann.com.ua` + subdomains): Ukrainian notice, "Перейти на сайт" keeps the link's target. Not for Ctrl / Cmd / Shift / middle clicks |
 | `modules/slider.js` | Swiper for `.swiper` (only the used Swiper modules) |
 | `modules/lightbox.js` | GLightbox for `[data-lightbox]` (images, YouTube/Vimeo, video files with Plyr; same value = one gallery, empty = single item without prev / next) |
 | `modules/hero.js` | Hero module slider (`.m-hero`): Swiper with arrows, dots, autoplay 5s (off with reduced motion), loop when more than one slide |
