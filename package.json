@@ -10,10 +10,11 @@
     "start": "gulp",
     "watch": "gulp watch",
     "build": "gulp prod",
+    "release": "node release.mjs",
     "lint": "npm run lint:scss && npm run lint:js",
     "lint:scss": "stylelint \"assets/scss/**/*.scss\"",
     "lint:scss:fix": "stylelint \"assets/scss/**/*.scss\" --fix",
-    "lint:js": "eslint \"assets/js/**/*.js\" gulpfile.js eslint.config.js"
+    "lint:js": "eslint \"assets/js/**/*.js\" gulpfile.js eslint.config.js release.mjs"
   },
   "devDependencies": {
     "@babel/core": "^7.29.0",
